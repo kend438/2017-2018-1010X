@@ -8,3 +8,4 @@ FastBot/Makefile
 FastBot/firmware/STM32F10x.ld
 *.ld
 FastBot/include/API.h
+FastBot/common.mk

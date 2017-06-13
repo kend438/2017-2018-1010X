@@ -32,6 +32,9 @@
 void operatorControl() {
 	while (1) {
 
+//this are comments
+
+
 		int Lside = joystickGetAnalog(1, 3) + joystickGetAnalog(1, 4);
 		int Rside = joystickGetAnalog(1, 3) - joystickGetAnalog(1, 4);
 		motorSet(1, Lside);

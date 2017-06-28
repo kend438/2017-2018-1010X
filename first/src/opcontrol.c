@@ -30,10 +30,10 @@ motorSet(DriveMBL, JoyL);
 motorSet(DriveFR, -JoyR);
 motorSet(DriveMBR, -JoyR);
 */
-		if(joystickGetDigital(1,6,JOY_UP)){
+		if(joystickGetDigital(2,5,JOY_UP)){
 			liftSet(-127);
 		}
-		else if(joystickGetDigital(1,6,JOY_DOWN)){
+		else if(joystickGetDigital(2,5,JOY_DOWN)){
 			liftSet(127);
 		}
 		else{

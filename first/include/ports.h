@@ -10,11 +10,16 @@
 #define DriveFR 9
 #define DriveMBR 10
 
-#define liftTop 4// was 3
+#define lift 7//mobile goal
 /*
 #define liftBottom 8
 */
 #define claw 6// was 4
-#define arm 7
+#define arm 4//chain bar
+
+#define encoderL 1
+#define encoderR 2
+
+Encoder encoder;
 
 #endif

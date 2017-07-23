@@ -3,33 +3,80 @@
 #include "claw.h"
 #include "lift.h"
 #include "ports.h"
-#include "arm.h"
 #include "drive.h"
 
 void operatorControl() {
+
+	float pidError;
+	float pidArm;
+	bool armRaise;
+	bool armLower;
+	int SensorTargetValue;
+	int current;
+	float pid_Kp = 0.5;
+
+ SensorTargetValue = encoderGet(encoder);
+
 	while (1) {
+
+
+		int counts = encoderGet(encoder);
+		lcdPrint(uart1, 1, "encoder%d", counts);
+		delay(20);
+
+
 		int power, turn;
 		power = joystickGetAnalog(1,1);
 		turn = joystickGetAnalog(1,3);
 		driveSet(power - turn, power + turn);
-/*
-		motorSet(DriveFL, -power -
-		 turn);
-		motorSet(DriveMBL, -power - turn);
-		motorSet(DriveBL, -power - turn);
-		motorSet(DriveBR, -power + turn);
-		motorSet(DriveFR, -power + turn);
-		motorSet(DriveMBR, -power + turn);
-		*/
-/*
-int JoyL = joystickGetAnalog(1,3);
-int JoyR = joystickGetAnalog(1,2);
 
-motorSet(DriveFL, JoyL);
-motorSet(DriveMBL, JoyL);
-motorSet(DriveFR, -JoyR);
-motorSet(DriveMBR, -JoyR);
-*/
+		armRaise = joystickGetDigital(2,5,JOY_UP);
+		armLower = joystickGetDigital(2,5,JOY_DOWN);
+
+				//if no buttons are pressed, activate PID
+				if(armRaise==0 && armLower == 0)
+				{
+
+									current = encoderGet(encoder);
+									if(current<701)
+									{
+									//find encoder value now
+									pidError =  SensorTargetValue - current;
+								  // calculate arm
+								  pidArm = (pid_Kp * pidError);
+
+								  // limit arm
+								  if( pidArm > 127 )
+								 		 pidArm = 127;
+								  if( pidArm < (-127) )
+								 		 pidArm = (-127);
+}
+										 motorSet(arm, pidArm);
+
+				}
+//pid goes here
+
+//arm goinng up
+				else if(armRaise!=0 && armLower==0)
+				{
+					motorSet(arm,-127);
+					SensorTargetValue = encoderGet(encoder);
+					lcdPrint(uart1, 2, "Target%d", SensorTargetValue);
+				}
+//arm going down
+				else if(armRaise==0 && armLower!=0)
+				{
+					motorSet(arm, 127);
+					SensorTargetValue = encoderGet(encoder);
+					lcdPrint(uart1, 2, "Target%d", SensorTargetValue);
+				}
+//other condition
+				else
+				{
+					motorSet(arm, 0);
+				}
+
+/* used to be arm without pid
 		if(joystickGetDigital(2,5,JOY_UP)){
 			liftSet(-127);
 		}
@@ -39,27 +86,18 @@ motorSet(DriveMBR, -JoyR);
 		else{
 			liftSet(0);
 		}
+		*/
 
 		clawSet(joystickGetAnalog(2,2));
-		/*
-		if(joystickGetDigital(1,5,JOY_UP)){
-			clawSet(127);
+
+		if(joystickGetDigital(1,6,JOY_UP)){
+			liftSet(-127);
 		}
-		else if(joystickGetDigital(1,5,JOY_DOWN)){
-			clawSet(-127);
-		}
-		else{
-			clawSet(0);
-		}
-		*/
-		if(joystickGetDigital(1,5,JOY_UP)){
-			armSet(-127);
-		}
-		else if(joystickGetDigital(1,5,JOY_DOWN)){
-			armSet(127);
+		else if(joystickGetDigital(1,6,JOY_DOWN)){
+			liftSet(127);
 		}
 		else{
-			armSet(0);
+			liftSet(0);
 		}
 		delay(20);
 	}

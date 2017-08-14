@@ -20,6 +20,6 @@
 #define encoderL 1
 #define encoderR 2
 
-Encoder encoder;
+//Encoder encoder;
 
 #endif

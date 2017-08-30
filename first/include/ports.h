@@ -1,21 +1,21 @@
 #ifndef PORTS_H_
 #define PORTS_H_
 
-#define DriveFL 2
-#define DriveMBL 1
+#define DriveFL 4
+#define DriveMBL 3
 
-#define DriveBL 3
-#define DriveBR 8
+#define DriveBL 2
+#define DriveBR 7
 
 #define DriveFR 9
-#define DriveMBR 10
+#define DriveMBR 8
 
-#define lift 7//mobile goal
+#define lift 6//mobile goal
 /*
 #define liftBottom 8
 */
-#define claw 6// was 4
-#define arm 4//chain bar
+#define claw 1// was 4
+#define arm 5//chain bar
 
 #define encoderL 1
 #define encoderR 2

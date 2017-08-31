@@ -78,13 +78,13 @@ void operatorControl() {
 */
 //used to be arm without pid
 		if(joystickGetDigital(2,5,JOY_UP)){
-			motorSet(4,-127);
+			motorSet(arm,-127);
 		}
 		else if(joystickGetDigital(2,5,JOY_DOWN)){
-			motorSet(4,127);
+			motorSet(arm,127);
 		}
 		else{
-			motorSet(4,0);
+			motorSet(arm,0);
 		}
 
 

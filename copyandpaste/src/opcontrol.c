@@ -28,7 +28,7 @@ void operatorControl() {
 		int power, turn;
 		power = joystickGetAnalog(1,1);
 		turn = joystickGetAnalog(1,3);
-		driveSet(-power + turn, power - turn);
+		driveSet(power - turn, power + turn);
 
 		armRaise = joystickGetDigital(2,5,JOY_UP);
 		armLower = joystickGetDigital(2,5,JOY_DOWN);

@@ -28,7 +28,7 @@ void operatorControl() {
 		int power, turn;
 		power = joystickGetAnalog(1,1);
 		turn = joystickGetAnalog(1,3);
-		driveSet(power - turn, power + turn);
+		driveSet(-power + turn, power - turn);
 
 		armRaise = joystickGetDigital(2,5,JOY_UP);
 		armLower = joystickGetDigital(2,5,JOY_DOWN);
@@ -105,8 +105,15 @@ void operatorControl() {
 >>>>>>> 7df428b869349c7d5171e3a44def7603c892dae8
 		}
 		*/
+		if(joystickGetDigital(2,6,JOY_UP)){
+			clawSet(-127);
+		}
+		else if(joystickGetDigital(2,6,JOY_DOWN)){
+			clawSet(127);
+		}
+		else
+			clawSet(0);
 
-		clawSet(joystickGetAnalog(2,2));
 
 		if(joystickGetDigital(1,6,JOY_UP)){
 			liftSet(-127);

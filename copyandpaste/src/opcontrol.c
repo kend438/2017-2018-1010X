@@ -41,11 +41,10 @@ void operatorControl() {
 									if(current<701)
 									{
 									//find encoder value now
-									pidError =  SensorTargetValue - current;//error
-									//The difference = initial value   - the current value
+									pidError =  SensorTargetValue - current;
 								  // calculate arm
-								  pidArm = (pid_Kp * pidError);//motor power
-									//the power = (constant x the difference)
+								  pidArm = (pid_Kp * pidError);
+
 								  // limit arm
 								  if( pidArm > 127 )
 								 		 pidArm = 127;
@@ -106,8 +105,15 @@ void operatorControl() {
 >>>>>>> 7df428b869349c7d5171e3a44def7603c892dae8
 		}
 		*/
+		if(joystickGetDigital(2,6,JOY_UP)){
+			clawSet(-127);
+		}
+		else if(joystickGetDigital(2,6,JOY_DOWN)){
+			clawSet(127);
+		}
+		else
+			clawSet(0);
 
-		clawSet(joystickGetAnalog(2,2));
 
 		if(joystickGetDigital(1,6,JOY_UP)){
 			liftSet(-127);

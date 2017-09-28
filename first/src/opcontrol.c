@@ -41,10 +41,11 @@ void operatorControl() {
 									if(current<701)
 									{
 									//find encoder value now
-									pidError =  SensorTargetValue - current;
+									pidError =  SensorTargetValue - current;//error
+									//The difference = initial value   - the current value
 								  // calculate arm
-								  pidArm = (pid_Kp * pidError);
-
+								  pidArm = (pid_Kp * pidError);//motor power
+									//the power = (constant x the difference)
 								  // limit arm
 								  if( pidArm > 127 )
 								 		 pidArm = 127;

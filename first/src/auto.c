@@ -33,4 +33,8 @@
 void autonomous() {
   driveSet(127,127);
   delay(3000);
+  liftSet(-127);
+  delay(500);
+  driveSet(-127,-127);
+  delay(3000);
 }

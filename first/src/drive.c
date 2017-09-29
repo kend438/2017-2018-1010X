@@ -3,9 +3,9 @@
 //turning is good, forward/backwards is wrong
 void driveSet(int left, int right){
   motorSet(DriveFL, left);
-  motorSet(DriveMBL, left);
+  //motorSet(DriveMBL, left);
   motorSet(DriveBL, left);
   motorSet(DriveBR, right);
   motorSet(DriveFR, right);
-  motorSet(DriveMBR, right);
+  //motorSet(DriveMBR, right);
 }

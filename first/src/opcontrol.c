@@ -46,12 +46,12 @@ void operatorControl() {
 								  pidArm = (pid_Kp * pidError);
 
 								  // limit arm
-								  if( pidArm > 127 )
-								 		 pidArm = 127;
-								  if( pidArm < (-127) )
-								 		 pidArm = (-127);
+								  if( pidArm > 30 )
+								 		 pidArm = 30;
+								  if( pidArm < (-30) )
+								 		 pidArm = (-30);
 }
-										 motorSet(arm, pidArm);
+
 
 				}
 //pid goes here
@@ -59,23 +59,24 @@ void operatorControl() {
 //arm goinng up
 				else if(armRaise!=0 && armLower==0)
 				{
-					motorSet(arm,-127);
+					pidArm = -127;
 					SensorTargetValue = encoderGet(encoder);
 					lcdPrint(uart1, 2, "Target%d", SensorTargetValue);
 				}
 //arm going down
 				else if(armRaise==0 && armLower!=0)
 				{
-					motorSet(arm, 127);
+					pidArm = 127;
 					SensorTargetValue = encoderGet(encoder);
 					lcdPrint(uart1, 2, "Target%d", SensorTargetValue);
 				}
 //other condition
 				else
 				{
-					motorSet(arm, 0);
+					pidArm = 0;
 				}
 
+				motorSet(arm, pidArm);
 /* used to be arm without pid
 		if(joystickGetDigital(2,5,JOY_UP)){
 			liftSet(-127);

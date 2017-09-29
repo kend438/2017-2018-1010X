@@ -2,13 +2,13 @@
 #define PORTS_H_
 
 #define DriveFL 2
-#define DriveMBL 1
+//#define DriveMBL 1
 
 #define DriveBL 3
 #define DriveBR 8
 
 #define DriveFR 9
-#define DriveMBR 10
+//#define DriveMBR 10
 
 #define lift 7//mobile goal
 /*

@@ -105,15 +105,7 @@ void operatorControl() {
 >>>>>>> 7df428b869349c7d5171e3a44def7603c892dae8
 		}
 		*/
-		if(joystickGetDigital(2,6,JOY_UP)){
-			clawSet(-127);
-		}
-		else if(joystickGetDigital(2,6,JOY_DOWN)){
-			clawSet(127);
-		}
-		else
-			clawSet(0);
-
+		clawSet(joystickGetAnalog(2,2));
 
 		if(joystickGetDigital(1,6,JOY_UP)){
 			liftSet(-127);

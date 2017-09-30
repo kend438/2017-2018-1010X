@@ -61,6 +61,9 @@ void autonomous();
  * configure a UART port (usartOpen()) but cannot set up an LCD (lcdInit()).
  */
 void initializeIO();
+Encoder encoder;
+Encoder encoder_L;
+Encoder encoder_R;
 /**
  * Runs user initialization code. This function will be started in its own task with the default
  * priority and stack size once when the robot is starting up. It is possible that the VEXnet

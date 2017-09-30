@@ -3,7 +3,7 @@
 
 //mobile goal
 void liftSet(int speed){
-  motorSet(lift,speed);
+  motorSet(lift,-speed);
 /*
   motorSet(liftBottom,speed);
   */

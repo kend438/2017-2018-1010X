@@ -4,7 +4,7 @@
 
 #define claw 1
 
-#define DriveFL 2
+#define DriveFL 9
 #define DriveBL 3
 
 #define ArmLB 4
@@ -14,7 +14,7 @@
 #define ArmRB 7
 
 #define DriveFR 8
-#define DriveBR 9
+#define DriveBR 2
 
 #define nothing 10
 

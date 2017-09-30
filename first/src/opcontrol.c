@@ -41,19 +41,24 @@ void operatorControl() {
 									if(current<701)
 									{
 									//find encoder value now
-									pidError =  SensorTargetValue - current;
+									pidError =  SensorTargetValue - current;//error
+									//The difference = initial value   - the current value
 								  // calculate arm
-								  pidArm = (pid_Kp * pidError);
-
+								  pidArm = (pid_Kp * pidError);//motor power
+									//the power = (constant x the difference)
 								  // limit arm
-								  if( pidArm > 127 )
-								 		 pidArm = 127;
-								  if( pidArm < (-127) )
-								 		 pidArm = (-127);
+								  if( pidArm > 30 )
+								 		 pidArm = 30;
+								  if( pidArm < (-30) )
+								 		 pidArm = (-30);
 }
+<<<<<<< HEAD
+
+=======
 										 motorSet(ArmT, pidArm);
 										 motorSet(ArmLB, pidArm);
 										 motorSet(ArmRB, pidArm);
+>>>>>>> 84189b9170b2d9087baaf0e587b36af5c57654f1
 
 				}
 //pid goes here
@@ -61,29 +66,42 @@ void operatorControl() {
 //arm goinng up
 				else if(armRaise!=0 && armLower==0)
 				{
+<<<<<<< HEAD
+					pidArm = -127;
+=======
 					motorSet(ArmT, -127);
 					motorSet(ArmLB, -127);
 					motorSet(ArmRB, -127);
+>>>>>>> 84189b9170b2d9087baaf0e587b36af5c57654f1
 					SensorTargetValue = encoderGet(encoder);
 					lcdPrint(uart1, 2, "Target%d", SensorTargetValue);
 				}
 //arm going down
 				else if(armRaise==0 && armLower!=0)
 				{
+<<<<<<< HEAD
+					pidArm = 127;
+=======
 				 motorSet(ArmT, 127);
  				 motorSet(ArmLB, 127);
  				 motorSet(ArmRB, 127);
+>>>>>>> 84189b9170b2d9087baaf0e587b36af5c57654f1
 					SensorTargetValue = encoderGet(encoder);
 					lcdPrint(uart1, 2, "Target%d", SensorTargetValue);
 				}
 //other condition
 				else
 				{
+<<<<<<< HEAD
+					pidArm = 0;
+=======
 					motorSet(ArmT, 0);
 					motorSet(ArmLB, 0);
 					motorSet(ArmRB, 0);
+>>>>>>> 84189b9170b2d9087baaf0e587b36af5c57654f1
 				}
 
+				motorSet(arm, pidArm);
 /* used to be arm without pid
 		if(joystickGetDigital(2,5,JOY_UP)){
 <<<<<<< HEAD

@@ -8,20 +8,49 @@
 void operatorControl() {
 
 	float pidError;
-	float pidArm;
+	int pidArm;
 	bool armRaise;
 	bool armLower;
+	bool armDown;
+	bool sevenCone;
+	bool preset;
 	int SensorTargetValue;
 	int current;
+<<<<<<< HEAD
 	float pid_Kp = 0.5;
+	/*int LiftUp;
+	int LiftDown;
+	int SensorTargetValue2;
+*/
+=======
+	float pid_Kp = 1.5;//was 0.5
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
 
  SensorTargetValue = encoderGet(encoder);
+ SensorTargetValue = encoderGet(encoderLift);
 
 	while (1) {
+
+		clawSet(joystickGetAnalog(2,2));
+
+		if(joystickGetDigital(1,6,JOY_UP)){
+			liftSet(-127);
+		}
+		else if(joystickGetDigital(1,6,JOY_DOWN)){
+			liftSet(127);
+		}
+		else{
+			liftSet(0);
+		}
 
 
 		int counts = encoderGet(encoder);
 		lcdPrint(uart1, 1, "encoder%d", counts);
+		delay(20);
+		lcdPrint(uart1, 2, "Target%d", SensorTargetValue);
+
+		int countsLift = encoderGet(encoderLift);
+		lcdPrint(uart1, 2, "encoderLift%d", countsLift);
 		delay(20);
 
 
@@ -32,7 +61,9 @@ void operatorControl() {
 
 		armRaise = joystickGetDigital(2,5,JOY_UP);
 		armLower = joystickGetDigital(2,5,JOY_DOWN);
-
+		armDown = joystickGetDigital(2,7,JOY_DOWN);
+	  sevenCone = joystickGetDigital(2,7,JOY_UP);
+		preset = joystickGetDigital(2,7,JOY_LEFT);
 				//if no buttons are pressed, activate PID
 				if(armRaise==0 && armLower == 0)
 				{
@@ -54,8 +85,8 @@ void operatorControl() {
 										 motorSet(ArmT, pidArm);
 										 motorSet(ArmLB, pidArm);
 										 motorSet(ArmRB, pidArm);
+}
 
-				}
 //pid goes here
 
 //arm goinng up
@@ -65,7 +96,6 @@ void operatorControl() {
 					motorSet(ArmLB, -127);
 					motorSet(ArmRB, -127);
 					SensorTargetValue = encoderGet(encoder);
-					lcdPrint(uart1, 2, "Target%d", SensorTargetValue);
 				}
 //arm going down
 				else if(armRaise==0 && armLower!=0)
@@ -83,6 +113,51 @@ void operatorControl() {
 					motorSet(ArmLB, 0);
 					motorSet(ArmRB, 0);
 				}
+//466 8D
+
+ if(armDown !=0){
+	 SensorTargetValue = 470;
+	 /*
+	int arm = encoderGet(encoder);
+	int armError =  466 - arm;
+	float armDown = (pid_Kp * armError);
+
+	// limit arm
+	if( armDown > 127 )
+		 armDown = 127;
+	if( armDown < (-127) )
+		 armDown = (-127);
+
+	motorSet(ArmT, armDown);
+	motorSet(ArmLB, armDown);
+	motorSet(ArmRB, armDown);
+*/}
+
+
+ if(sevenCone != 0){
+
+	 SensorTargetValue = 245;}
+
+	 if(preset != 0){
+
+	 	SensorTargetValue = 355;}
+
+	 /*
+	int arm = encoderGet(encoder);
+	int armError =  280 - arm;
+	float armDown = (pid_Kp * armError);
+
+	// limit arm
+	if( armDown > 127 )
+		 armDown = 127;
+	if( armDown < (-127) )
+		 armDown = (-127);
+
+	motorSet(ArmT, armDown);
+	motorSet(ArmLB, armDown);
+	motorSet(ArmRB, armDown);
+*/}
+
 
 /* used to be arm without pid
 		if(joystickGetDigital(2,5,JOY_UP)){
@@ -105,17 +180,25 @@ void operatorControl() {
 >>>>>>> 7df428b869349c7d5171e3a44def7603c892dae8
 		}
 		*/
-		clawSet(joystickGetAnalog(2,2));
+<<<<<<< HEAD
 
-		if(joystickGetDigital(1,6,JOY_UP)){
-			liftSet(-127);
-		}
-		else if(joystickGetDigital(1,6,JOY_DOWN)){
-			liftSet(127);
-		}
-		else{
-			liftSet(0);
-		}
+
+
+		clawSet(joystickGetAnalog(2,2));
+=======
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
+
 		delay(20);
 	}
+<<<<<<< HEAD
+
+
+
+	/*if(SensorTargetValue2);
+
+	encoder2 = 200
+*/
+
 }
+=======
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e

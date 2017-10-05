@@ -65,9 +65,13 @@ Encoder encoder;
 Encoder encoder_L;
 Encoder encoder_R;
 <<<<<<< HEAD
+<<<<<<< HEAD
 Encoder encoderLift;
 
 
+=======
+Gyro gyro;
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
 =======
 Gyro gyro;
 >>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e

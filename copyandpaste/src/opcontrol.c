@@ -17,11 +17,15 @@ void operatorControl() {
 	int SensorTargetValue;
 	int current;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	float pid_Kp = 0.5;
 	/*int LiftUp;
 	int LiftDown;
 	int SensorTargetValue2;
 */
+=======
+	float pid_Kp = 1.5;//was 0.5
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
 =======
 	float pid_Kp = 1.5;//was 0.5
 >>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
@@ -48,10 +52,13 @@ void operatorControl() {
 		lcdPrint(uart1, 1, "encoder%d", counts);
 		delay(20);
 		lcdPrint(uart1, 2, "Target%d", SensorTargetValue);
+<<<<<<< HEAD
 
 		int countsLift = encoderGet(encoderLift);
 		lcdPrint(uart1, 2, "encoderLift%d", countsLift);
 		delay(20);
+=======
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
 
 
 		int power, turn;
@@ -181,6 +188,7 @@ void operatorControl() {
 		}
 		*/
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
@@ -201,4 +209,9 @@ void operatorControl() {
 
 }
 =======
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
+=======
+
+		delay(20);
+	}
 >>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e

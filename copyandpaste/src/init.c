@@ -13,7 +13,7 @@ void initialize() {
 encoder = encoderInit(1, 2, 0);
 encoder_L = encoderInit(5, 6, 0);
 encoder_R = encoderInit(7, 8, 0);
-
+gyro = gyroInit(1,196);
   lcdClear(uart1);
     lcdSetText(uart1, 1, "Ready");
 }

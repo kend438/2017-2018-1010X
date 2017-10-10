@@ -2,7 +2,7 @@
 #include "ports.h"
 #include "main.h"
 #include "drive.h"
-
+#include "lift.h"
 
 
 void autoDrive(int direction, int target){
@@ -43,15 +43,15 @@ driveSet(direction*leftPower,direction*rightPower);
 }
 //
 }
-void gyroTurn(int direction, int targetTurn){
-
+void gyroTurn(int direction, int targetTurn)
+{
   int rightPower;
   int leftPower;
   int gyroAverage = 0;
   gyroReset(gyro);
 
-  while(gyroAverage < targetTurn){
-
+  while(gyroAverage < targetTurn)
+  {
     gyroAverage = gyroGet(gyro); // gyro position update (using util function)
 
     if(gyroAverage < targetTurn){
@@ -66,6 +66,24 @@ void gyroTurn(int direction, int targetTurn){
 
     driveSet(direction*leftPower, direction*rightPower);
       delay(20);
-      }
+  }
 
+
+}
+
+void mobileGoalOut(int target){
+int autoEncoderLift = encoderGet(encoderLift);
+if(autoEncoderLift < target)
+{
+liftSet(127);
+}
+}
+void mobileGoalIn(int target)
+{
+int liftPower;
+int autoEncoderLift = encoderGet(encoderLift);
+if(autoEncoderLift > target)
+{
+liftSet(-127);
+}
 }

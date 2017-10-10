@@ -20,6 +20,7 @@ void operatorControl() {
 	int SensorTargetValue;
 	int SensorTargetLift;
 	int current;
+<<<<<<< HEAD
 	bool liftUp;
 	bool liftDown;
 
@@ -28,6 +29,24 @@ void operatorControl() {
 
  SensorTargetValue = encoderGet(encoder);
  SensorTargetLift = encoderGet(encoderLift);
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+	float pid_Kp = 0.5;
+	/*int LiftUp;
+	int LiftDown;
+	int SensorTargetValue2;
+*/
+=======
+	float pid_Kp = 1.5;//was 0.5
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
+=======
+	float pid_Kp = 1.5;//was 0.5
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
+
+ SensorTargetValue = encoderGet(encoder);
+ SensorTargetValue = encoderGet(encoderLift);
+>>>>>>> 9f8e44f11a1bfd804fc125f0ccfe162a8a1ddf3c
 
 	while (1) {
 
@@ -87,9 +106,19 @@ void operatorControl() {
 		/*int counts = encoderGet(encoder);
 		lcdPrint(uart1, 1, "encoder%d", counts);
 		lcdPrint(uart1, 2, "Target%d", SensorTargetValue);
+<<<<<<< HEAD
 */
 		int countsLift = encoderGet(encoderLift);
 		lcdPrint(uart1, 1, "encoderLift%d", countsLift);
+=======
+<<<<<<< HEAD
+
+		int countsLift = encoderGet(encoderLift);
+		lcdPrint(uart1, 2, "encoderLift%d", countsLift);
+		delay(20);
+=======
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
+>>>>>>> 9f8e44f11a1bfd804fc125f0ccfe162a8a1ddf3c
 
 		lcdPrint(uart1, 2, "targetLift%d", SensorTargetLift);
 
@@ -150,6 +179,7 @@ void operatorControl() {
  if(armDown == 1)
  {
 	 SensorTargetValue = 470;
+<<<<<<< HEAD
  }
 
  if(sevenCone == 1)
@@ -165,3 +195,96 @@ delay(20);
 }
 
 }
+=======
+	 /*
+	int arm = encoderGet(encoder);
+	int armError =  466 - arm;
+	float armDown = (pid_Kp * armError);
+
+	// limit arm
+	if( armDown > 127 )
+		 armDown = 127;
+	if( armDown < (-127) )
+		 armDown = (-127);
+
+	motorSet(ArmT, armDown);
+	motorSet(ArmLB, armDown);
+	motorSet(ArmRB, armDown);
+*/}
+
+
+ if(sevenCone != 0){
+
+	 SensorTargetValue = 245;}
+
+	 if(preset != 0){
+
+	 	SensorTargetValue = 355;}
+
+	 /*
+	int arm = encoderGet(encoder);
+	int armError =  280 - arm;
+	float armDown = (pid_Kp * armError);
+
+	// limit arm
+	if( armDown > 127 )
+		 armDown = 127;
+	if( armDown < (-127) )
+		 armDown = (-127);
+
+	motorSet(ArmT, armDown);
+	motorSet(ArmLB, armDown);
+	motorSet(ArmRB, armDown);
+*/}
+
+
+/* used to be arm without pid
+		if(joystickGetDigital(2,5,JOY_UP)){
+<<<<<<< HEAD
+			motorSet(arm,-127);
+		}
+		else if(joystickGetDigital(2,5,JOY_DOWN)){
+			motorSet(arm,127);
+		}
+		else{
+			motorSet(arm,0);
+=======
+			liftSet(-127);
+		}
+		else if(joystickGetDigital(2,5,JOY_DOWN)){
+			liftSet(127);
+		}
+		else{
+			liftSet(0);
+>>>>>>> 7df428b869349c7d5171e3a44def7603c892dae8
+		}
+		*/
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+
+
+		clawSet(joystickGetAnalog(2,2));
+=======
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
+
+		delay(20);
+	}
+<<<<<<< HEAD
+
+
+
+	/*if(SensorTargetValue2);
+
+	encoder2 = 200
+*/
+
+}
+=======
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
+=======
+
+		delay(20);
+	}
+>>>>>>> fa57ca5fbcda22237cd8aead6fe641a2148af71e
+>>>>>>> 9f8e44f11a1bfd804fc125f0ccfe162a8a1ddf3c

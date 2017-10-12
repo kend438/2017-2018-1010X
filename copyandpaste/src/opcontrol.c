@@ -8,6 +8,7 @@
 void operatorControl() {
 
 	float pidError;
+	int countsLift;
 	int liftCurrent;
 	int pidArm;
 	bool armRaise;
@@ -16,7 +17,6 @@ void operatorControl() {
 	bool sevenCone;
 	bool preset;
 	int SensorTargetValue;
-	int SensorTargetLift;
 	int current;
 	bool liftUp;
 	bool liftDown;
@@ -25,7 +25,6 @@ void operatorControl() {
 	float pid_Kp = 1.5;//was 0.5
 
  SensorTargetValue = encoderGet(encoder);
- SensorTargetLift = encoderGet(encoderLift);
 
 	while (1) {
 
@@ -42,23 +41,23 @@ void operatorControl() {
 		clawSet(joystickGetAnalog(2,2));
 
 		///***MOBILEGOAL***//
-		if(liftUp == 1 && liftDown ==0){liftSet(-127);}
+		if(liftUp == 1 && liftDown ==0 && liftScore == 0){liftSet(-127);}
 
-		else if(liftDown == 1 && liftUp == 0){liftSet(127);}
+		else if(liftDown == 1 && liftUp == 0 && liftScore == 0){liftSet(127);}
 
-		if(liftUp==0 && liftDown == 0){liftSet(0);}
-
-		if(liftScore == 1)
+		else if(liftDown == 0 && liftUp == 0 && liftScore == 1)
 		{
 			liftCurrent = encoderGet(encoderLift);
-			if(liftCurrent > 1000){liftSet(127);}
+			if(liftCurrent > 470){liftSet(0);}
+
+			if(liftCurrent < 470){liftSet(127);}
 		}
 
+		else{liftSet(0);}
 
 		///*****ENCODERSLCD*****//
-		int countsLift = encoderGet(encoderLift);
-		lcdPrint(uart1, 2, "encoderLift%d", countsLift);
-		lcdPrint(uart1, 2, "targetLift%d", SensorTargetLift);
+		countsLift = encoderGet(encoderLift);
+		lcdPrint(uart1, 2, "targetLift%d", countsLift);
 
 		//*****DRIVE*****//
 		int power, turn;

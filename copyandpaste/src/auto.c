@@ -30,7 +30,37 @@
  * The autonomous task may exit, unlike operatorControl() which should never exit. If it does
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
-void autonomous() {
 
-  autoDrive(1, 500);
+ void skillsAuto () {
+
+ }
+void autonomous() {
+while(1){
+  armDown(250);
+  mobileGoalOut(1200);
+  autoDrive(-1, 1250);
+  delay(300);
+  mobileGoalIn(1100);
+  delay(400);
+  autoDrive(1,950);
+  gyroTurn(1,90);
+  autoDrive(-1,100);
+  /*autoDrive(-1,340);
+  delay(800);*/
+  mobileGoalOut(1200);
+  autoDrive(1,40);
+  mobileGoalIn(900);
+  autoDrive(1,100);
+  stop();
+}
+  if (program == 1) {
+    skillsAuto();
+  }
+/*  else if (program == 2) {
+    compLeftAuto();
+  }
+  else if (program == 3) {
+    compRightAuto();
+  }
+*/
 }

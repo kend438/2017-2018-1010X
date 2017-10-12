@@ -21,9 +21,7 @@ while(tics < target){
 
   ticsL = encoderGet(encoder_L);
   ticsR = encoderGet(encoder_R);
-  tics = (ticsL + ticsR)/2;
-
-  lcdPrint(uart1, 1, "encoder%d", tics);
+  tics = (abs(ticsL) + abs(ticsR))/2;
 
 
 if(tics < target){
@@ -47,43 +45,94 @@ void gyroTurn(int direction, int targetTurn)
 {
   int rightPower;
   int leftPower;
-  int gyroAverage = 0;
+  int  gyroAverage = 0;
   gyroReset(gyro);
 
-  while(gyroAverage < targetTurn)
-  {
-    gyroAverage = gyroGet(gyro); // gyro position update (using util function)
-
-    if(gyroAverage < targetTurn){
+while(gyroAverage < targetTurn)
+{
+    gyroAverage = abs(gyroGet(gyro));
+    if(gyroAverage < targetTurn)
+    {
       rightPower = 127;
-      leftPower = 127;}
-    else if (gyroAverage > targetTurn){
-      rightPower = 127;
-      leftPower = 127;}
+      leftPower = 127;
+    }
     else{
-      rightPower = 0;
-      leftPower = 0;}
+    rightPower = 0;
+    leftPower = 0;}
 
     driveSet(direction*leftPower, direction*rightPower);
       delay(20);
-  }
-
-
+}
 }
 
 void mobileGoalOut(int target){
-int autoEncoderLift = encoderGet(encoderLift);
-if(autoEncoderLift < target)
-{
-liftSet(127);
-}
-}
-void mobileGoalIn(int target)
-{
+int autoEncoderLift = 0;
 int liftPower;
-int autoEncoderLift = encoderGet(encoderLift);
-if(autoEncoderLift > target)
+encoderReset(encoderLift);
+while(autoEncoderLift < target)
 {
-liftSet(-127);
+autoEncoderLift = abs(encoderGet(encoderLift));
+if(autoEncoderLift < target){liftPower = 127;}
+else{liftPower = 0;}
+liftSet(liftPower);
+delay(20);
+}
+}
+
+void mobileGoalIn(int target){
+int autoEncoderLift = 0;
+encoderReset(encoderLift);
+while(autoEncoderLift < target)
+{
+autoEncoderLift = abs(encoderGet(encoderLift));
+int liftPower;
+if(autoEncoderLift < target){liftPower = (-127);}
+else{liftPower = 0;}
+
+liftSet(liftPower);
+
+delay(20);
+}
+}
+
+
+
+
+void armDown(int target){
+int autoCurrent = 0;
+int armPower;
+encoderReset(encoder);
+while(autoCurrent < target)
+{
+  autoCurrent = abs(encoderGet(encoder));
+  lcdPrint(uart1, 2, "armLift%d", autoCurrent);
+
+  if(autoCurrent < target){
+  autoCurrent = encoderGet(encoder);
+  armPower = 127;
+}
+  else{
+  armPower = 0;}
+  motorSet(ArmT,armPower);
+  motorSet(ArmLB,armPower);
+  motorSet(ArmRB,armPower);
+  delay(20);
+}
+
+}
+
+void stop()
+{
+  while (1) {
+  motorSet(1, 0);
+  motorSet(2, 0);
+  motorSet(3, 0);
+  motorSet(4, 0);
+  motorSet(5, 0);
+  motorSet(6, 0);
+  motorSet(7, 0);
+  motorSet(8, 0);
+  motorSet(9, 0);
+  motorSet(10, 0);
 }
 }

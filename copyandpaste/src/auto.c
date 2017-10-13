@@ -6,13 +6,14 @@
 #include "ports.h"
 
 #define INSIDE 1
-#define OUTSIDE -1
+#define OUTSIDE -0.7
 
 void autonomous() {
 
+
 switch(myauto){
 
-case 1: //rightside red
+case 1: //rightside blue
   armDown(470,OUTSIDE);
   mobileGoalOut(1200);
   autoDrive(-1, 1280);
@@ -104,13 +105,15 @@ mobileGoalIn(1100);
 break;
 
 case 6://stack preload red right
-armDown(90,OUTSIDE);
+armDown(105,INSIDE);
 mobileGoalOut(1200);
 autoDrive(-1, 1280);
 delay(400);
 mobileGoalIn(1100);
-armUp(70,INSIDE);
-clawOpenIt(1800);
+armUp(100,INSIDE);
+delay(200);
+clawOpenIt(2500);
+delay(250);
 armDown(450,OUTSIDE);
 autoDrive(1,600);
 gyroTurn(1,140);

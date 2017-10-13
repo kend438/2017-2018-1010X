@@ -113,7 +113,7 @@ while(autoCurrent < target)
   armPower = 127;
 }
   else{
-  armPower = 30*side;}///////////
+  armPower = 20*side;}///////////
   motorSet(ArmT,armPower);
   motorSet(ArmLB,armPower);
   motorSet(ArmRB,armPower);
@@ -131,7 +131,7 @@ void armUp(int target, int side){
     autoCurrent = abs(encoderGet(encoder));
     lcdPrint(uart1, 2, "armLift%d", autoCurrent);
 
-    if(autoCurrent > target){
+    if(autoCurrent < target){
     autoCurrent = encoderGet(encoder);
     armPower = -127;
   }
@@ -165,6 +165,12 @@ void stop()
 
 void clawOpenIt(int target){
 int clawPower;
-while(analogRead(2)<target){clawPower = 60;}
+int current = analogRead(2);
+while(current<target){
+current = analogRead(2);
+if(current < target){clawPower = 70;}
+else{clawPower = 0;}
 clawSet(clawPower);
+delay(20);
+}
 }

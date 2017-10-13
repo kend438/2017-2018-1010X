@@ -26,7 +26,7 @@ delay(20);
   delay(20);
 
 while(1){
-lcdPrint(uart1, 2, "myauto%d", myauto);
+lcdPrint(uart1, 2, "Auto%d", myauto);
 delay(150);
 if(lcdReadButtons(uart1) == 1){ // changes auto
         lcdClear(uart1);
@@ -38,6 +38,7 @@ if(lcdReadButtons(uart1) == 4){ // changes auto
         lcdSetText(uart1, 1, "wait");
         delay(100);
         myauto = myauto+1;}
+  if(isEnabled()){break;}
       }
       delay(20);
     }

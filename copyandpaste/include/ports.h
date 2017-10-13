@@ -22,6 +22,12 @@
 #define encoderL 1
 #define encoderR 2
 
+#define pot 2
+
+#define clawMax 2000
+
+#define clawMin 1690
+
 
 
 

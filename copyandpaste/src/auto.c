@@ -38,20 +38,37 @@ void autonomous() {
 while(1){
   armDown(250);
   mobileGoalOut(1200);
-  autoDrive(-1, 1250);
-  delay(300);
+  autoDrive(-1, 1280);
+  delay(400);
   mobileGoalIn(1100);
   delay(400);
-  autoDrive(1,950);
-  gyroTurn(1,90);
-  autoDrive(-1,100);
-  /*autoDrive(-1,340);
-  delay(800);*/
+  autoDrive(1,600);
+  gyroTurn(1,140);
+  autoDrive(-1,500);
+  gyroTurn(-1,20);
   mobileGoalOut(1200);
   autoDrive(1,40);
   mobileGoalIn(900);
   autoDrive(1,100);
   stop();
+
+  /*
+  armDown(250);
+  mobileGoalOut(1200);
+  autoDrive(-1, 1280);
+  delay(400);
+  mobileGoalIn(1100);
+  delay(400);
+  autoDrive(1,600);
+  gyroTurn(-1,140);
+  autoDrive(-1,500);
+  gyroTurn(1,20);
+  mobileGoalOut(1200);
+  autoDrive(1,40);
+  mobileGoalIn(900);
+  autoDrive(1,100);
+  stop();
+  */
 }
   if (program == 1) {
     skillsAuto();

@@ -12,6 +12,7 @@ Encoder encoder_R;
 Encoder encoderLift;
 
 Gyro gyro;
+
 int program;
 void initialize();
 void operatorControl();

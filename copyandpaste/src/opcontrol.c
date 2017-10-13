@@ -1,6 +1,7 @@
 
 #include "main.h"
 #include "claw.h"
+#include "clawbutton.h"
 #include "lift.h"
 #include "ports.h"
 #include "drive.h"
@@ -8,7 +9,6 @@
 void operatorControl() {
 
 	float pidError;
-	int countsLift;
 	int liftCurrent;
 	int pidArm;
 	bool armRaise;
@@ -21,6 +21,9 @@ void operatorControl() {
 	bool liftUp;
 	bool liftDown;
 	bool liftScore;
+	bool limitOverride;
+	bool clawO;
+	bool clawC;
 
 	float pid_Kp = 1.5;//was 0.5
 
@@ -36,28 +39,43 @@ void operatorControl() {
 		liftUp = joystickGetDigital(1,6,JOY_UP);
 		liftDown = joystickGetDigital(1,6,JOY_DOWN);
 		liftScore = joystickGetDigital(1,7,JOY_DOWN);
+		limitOverride = joystickGetDigital(2,8, JOY_DOWN);
+		clawO = joystickGetDigital(2,6,JOY_DOWN);
+		clawC = joystickGetDigital(2,6,JOY_UP);
 
 		///********CLAW*********//
+		/*
+		if(analogRead(2)<1800 && limitOverride == 0){
 		clawSet(joystickGetAnalog(2,2));
+		}
+		if(limitOverride ==1){
+			*/
+		clawSet(joystickGetAnalog(2,2));
+	//}
 
 		///***MOBILEGOAL***//
-		if(liftUp == 1 && liftDown ==0 && liftScore == 0){liftSet(-127);}
+		if(liftUp == 1 && liftDown ==0 && liftScore == 0 && limitOverride == 0){liftSet(-127);}
 
-		else if(liftDown == 1 && liftUp == 0 && liftScore == 0){liftSet(127);}
-
-		else if(liftDown == 0 && liftUp == 0 && liftScore == 1)
+		else if(liftDown == 1 && liftUp == 0 && liftScore == 0 && limitOverride == 0)
 		{
+			current = encoderGet(encoder);
+			if(current > 400 || current < 100){liftSet(127);}
+		}
+
+		else if(liftDown == 0 && liftUp == 0 && liftScore == 1 && limitOverride == 0)
+		{
+			current = encoderGet(encoder);
 			liftCurrent = encoderGet(encoderLift);
 			if(liftCurrent > 470){liftSet(0);}
 
-			if(liftCurrent < 470){liftSet(127);}
+			if(liftCurrent < 470 && (current > 400 || current < 100)){liftSet(127);}
 		}
 
 		else{liftSet(0);}
 
 		///*****ENCODERSLCD*****//
-		countsLift = encoderGet(encoderLift);
-		lcdPrint(uart1, 2, "targetLift%d", countsLift);
+		int clawposition = analogRead(2);
+		lcdPrint(uart1, 2, "clawPosition%d", clawposition);
 
 		//*****DRIVE*****//
 		int power, turn;
@@ -89,22 +107,28 @@ void operatorControl() {
 		}
 
 //arm goinng up
-				else if(armRaise!=0 && armLower==0)
+				else if(armRaise!=0 && armLower==0 && limitOverride == 0)
 				{
+					liftCurrent = encoderGet(encoderLift);
+					if(liftCurrent < 500){
 					motorSet(ArmT, -127);
 					motorSet(ArmLB, -127);
 					motorSet(ArmRB, -127);
 					//set the target value for PiD
 					SensorTargetValue = encoderGet(encoder);
 				}
+				}
 //arm going down
-				else if(armRaise==0 && armLower!=0)
+				else if(armRaise==0 && armLower!=0 && limitOverride ==0)
 				{
+					liftCurrent = encoderGet(encoderLift);
+					if(liftCurrent < 500){
 				 motorSet(ArmT, 127);
  				 motorSet(ArmLB, 127);
  				 motorSet(ArmRB, 127);
 					SensorTargetValue = encoderGet(encoder);
 				}
+			}
 //other condition
 				else
 				{
@@ -113,12 +137,22 @@ void operatorControl() {
 					motorSet(ArmRB, 0);
 				}
 
- if(armDown == 1){SensorTargetValue = 470;}
+ if(armDown == 1)
+ {{SensorTargetValue = 470;}
 
- if(sevenCone == 1){SensorTargetValue = 245;}
+ if(sevenCone == 1)
+ {
+	 liftCurrent = encoderGet(encoderLift);
+	 if(liftCurrent < 500){SensorTargetValue = 245;}
+}
 
- if(preset == 1){SensorTargetValue = 355;}
+ if(preset == 1)
+ {
+	 liftCurrent = encoderGet(encoderLift);
+	 if(liftCurrent < 500){SensorTargetValue = 355;}
+ }
 
 	delay(20);
+}
 }
 }

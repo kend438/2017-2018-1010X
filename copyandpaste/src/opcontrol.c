@@ -1,7 +1,6 @@
 
 #include "main.h"
 #include "claw.h"
-#include "clawbutton.h"
 #include "lift.h"
 #include "ports.h"
 #include "drive.h"
@@ -51,7 +50,7 @@ void operatorControl() {
 		if(limitOverride ==1){
 			*/
 		clawSet(joystickGetAnalog(2,2));
-	//}
+	//h}
 
 		///***MOBILEGOAL***//
 		if(liftUp == 1 && liftDown ==0 && liftScore == 0 && limitOverride == 0){liftSet(-127);}

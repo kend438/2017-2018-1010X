@@ -9,8 +9,11 @@ void mobileGoalOut(int target);
 
 void mobileGoalIn(int target);
 
-void armDown(int target);
+void armDown(int target, int side);
 
+void armUp(int target, int side);
+
+void clawOpenIt(int target);
 
 void stop();
 #endif

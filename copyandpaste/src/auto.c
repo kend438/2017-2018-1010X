@@ -1,42 +1,19 @@
-/** @file auto.c
- * @brief File for autonomous code
- *
- * This file should contain the user autonomous() function and any functions related to it.
- *
- * Any copyright is dedicated to the Public Domain.
- * http://creativecommons.org/publicdomain/zero/1.0/
- *
- * PROS contains FreeRTOS (http://www.freertos.org) whose source code may be
- * obtained from http://sourceforge.net/projects/freertos/files/ or on request.
- */
-
 #include "main.h"
 #include "autofunctions.h"
 #include "lift.h"
 #include "claw.h"
 #include "drive.h"
 #include "ports.h"
-/*
- * Runs the user autonomous code. This function will be started in its own task with the default
- * priority and stack size whenever the robot is enabled via the Field Management System or the
- * VEX Competition Switch in the autonomous mode. If the robot is disabled or communications is
- * lost, the autonomous task will be stopped by the kernel. Re-enabling the robot will restart
- * the task, not re-start it from where it left off.
- *
- * Code running in the autonomous task cannot access information from the VEX Joystick. However,
- * the autonomous function can be invoked from another task if a VEX Competition Switch is not
- * available, and it can access joystick information if called in this way.
- *
- * The autonomous task may exit, unlike operatorControl() which should never exit. If it does
- * so, the robot will await a switch to another mode or disable/enable cycle.
- */
 
- void skillsAuto () {
+#define INSIDE 1
+#define OUTSIDE -1
 
- }
 void autonomous() {
-while(1){
-  armDown(250);
+
+switch(myauto){
+
+case 1: //rightside red
+  armDown(470,OUTSIDE);
   mobileGoalOut(1200);
   autoDrive(-1, 1280);
   delay(400);
@@ -46,38 +23,110 @@ while(1){
   gyroTurn(1,140);
   autoDrive(-1,500);
   gyroTurn(-1,20);
+  autoDrive(-1,20);///////////////new
   mobileGoalOut(1200);
+  autoDrive(-1,20);///////////////new
   autoDrive(1,40);
-  mobileGoalIn(900);
+  mobileGoalIn(300);
   autoDrive(1,100);
   stop();
+break;
 
-  /*
-  armDown(250);
-  mobileGoalOut(1200);
-  autoDrive(-1, 1280);
-  delay(400);
-  mobileGoalIn(1100);
-  delay(400);
-  autoDrive(1,600);
-  gyroTurn(-1,140);
-  autoDrive(-1,500);
-  gyroTurn(1,20);
-  mobileGoalOut(1200);
-  autoDrive(1,40);
-  mobileGoalIn(900);
-  autoDrive(1,100);
-  stop();
-  */
+case 2: // leftside red
+armDown(470,1);
+mobileGoalOut(1200);
+autoDrive(-1, 1280);
+delay(400);
+mobileGoalIn(1100);
+delay(400);
+autoDrive(1,600);
+gyroTurn(-1,140);
+autoDrive(-1,500);
+gyroTurn(1,20);
+autoDrive(-1,20);
+mobileGoalOut(1200);
+autoDrive(-1,20);///////////////new
+autoDrive(1,40);
+mobileGoalIn(300);
+autoDrive(1,100);
+stop();
+break;
+
+case 3: //right blue coney
+armDown(470,1);
+mobileGoalOut(1200);
+autoDrive(-1, 1280);
+delay(400);
+autoDrive(-1, 200);
+mobileGoalIn(1100);
+delay(400);
+autoDrive(1,800);
+gyroTurn(1,140);
+autoDrive(-1,500);
+gyroTurn(-1,20);
+autoDrive(-1,20);///////////////new
+mobileGoalOut(1200);
+autoDrive(-1,20);///////////////new
+autoDrive(1,40);
+mobileGoalIn(300);
+autoDrive(1,100);
+stop();
+break;
+
+case 4: //left red coney
+armDown(470,1);
+mobileGoalOut(1200);
+autoDrive(-1, 1280);
+delay(400);
+autoDrive(-1, 200);
+mobileGoalIn(1100);
+delay(400);
+autoDrive(1,800);
+gyroTurn(-1,140);
+autoDrive(-1,500);
+gyroTurn(-1,20);
+autoDrive(-1,20);///////////////new
+mobileGoalOut(1200);
+autoDrive(-1,20);///////////////new
+autoDrive(1,40);
+mobileGoalIn(300);
+autoDrive(1,100);
+stop();
+break;
+
+case 5: //hold mobile goal
+armDown(470,1);
+mobileGoalOut(1200);
+autoDrive(-1, 1280);
+delay(400);
+autoDrive(-1, 200);
+mobileGoalIn(1100);
+break;
+
+case 6://stack preload red right
+armDown(90,OUTSIDE);
+mobileGoalOut(1200);
+autoDrive(-1, 1280);
+delay(400);
+mobileGoalIn(1100);
+armUp(70,INSIDE);
+clawOpenIt(1800);
+armDown(450,OUTSIDE);
+autoDrive(1,600);
+gyroTurn(1,140);
+autoDrive(-1,500);
+gyroTurn(-1,20);
+autoDrive(-1,20);///////////////new
+mobileGoalOut(1200);
+autoDrive(-1,20);///////////////new
+autoDrive(1,40);
+mobileGoalIn(300);
+autoDrive(1,100);
+stop();
+break;
+
+default:
+myauto = 1;
+break;
 }
-  if (program == 1) {
-    skillsAuto();
-  }
-/*  else if (program == 2) {
-    compLeftAuto();
-  }
-  else if (program == 3) {
-    compRightAuto();
-  }
-*/
 }

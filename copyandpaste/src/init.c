@@ -18,5 +18,5 @@ encoderLift = encoderInit(3, 4, 1);
 
 gyro = gyroInit(1,196);
   lcdClear(uart1);
-    lcdSetText(uart1, 1, "Ready");
+  lcdSetText(uart1, 1, "Ready");
 }

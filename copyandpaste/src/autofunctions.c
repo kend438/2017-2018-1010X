@@ -98,7 +98,7 @@ delay(20);
 
 
 
-void armDown(int target){
+void armDown(int target, int side){
 int autoCurrent = 0;
 int armPower;
 encoderReset(encoder);
@@ -112,12 +112,36 @@ while(autoCurrent < target)
   armPower = 127;
 }
   else{
-  armPower = 0;}
+  armPower = 30*side;}///////////
   motorSet(ArmT,armPower);
   motorSet(ArmLB,armPower);
   motorSet(ArmRB,armPower);
   delay(20);
 }
+
+}
+
+void armUp(int target, int side){
+  int autoCurrent = 0;
+  int armPower;
+  encoderReset(encoder);
+  while(autoCurrent < target)
+  {
+    autoCurrent = abs(encoderGet(encoder));
+    lcdPrint(uart1, 2, "armLift%d", autoCurrent);
+
+    if(autoCurrent > target){
+    autoCurrent = encoderGet(encoder);
+    armPower = -127;
+  }
+    else{
+    armPower = 30*side;}///////////////change used to be 0
+    motorSet(ArmT,armPower);
+    motorSet(ArmLB,armPower);
+    motorSet(ArmRB,armPower);
+    delay(20);
+  }
+
 
 }
 
@@ -135,4 +159,10 @@ void stop()
   motorSet(9, 0);
   motorSet(10, 0);
 }
+}
+
+
+void clawOpenIt(int target){
+while(analogRead(2)<target){clawSet(60);}
+clawSet(0;)
 }

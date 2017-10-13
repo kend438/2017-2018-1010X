@@ -3,6 +3,7 @@
 #include "main.h"
 #include "drive.h"
 #include "lift.h"
+#include "claw.h"
 
 
 void autoDrive(int direction, int target){
@@ -163,6 +164,7 @@ void stop()
 
 
 void clawOpenIt(int target){
-while(analogRead(2)<target){clawSet(60);}
-clawSet(0;)
+int clawPower;
+while(analogRead(2)<target){clawPower = 60;}
+clawSet(clawPower);
 }

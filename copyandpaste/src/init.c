@@ -19,4 +19,18 @@ encoderLift = encoderInit(3, 4, 1);
 gyro = gyroInit(1,196);
   lcdClear(uart1);
   lcdSetText(uart1, 1, "Ready");
-}
+
+while(1){
+lcdPrint(uart1, 1, "%d", myauto);
+if(lcdReadButtons(uart1) == 1){ // changes auto
+        lcdClear(uart1);
+        lcdSetText(uart1, 1, "wait");
+        delay(100); // btntime
+        myauto = myauto-1;}
+if(lcdReadButtons(uart1) == 4){ // changes auto
+        lcdClear(uart1);
+        lcdSetText(uart1, 1, "wait");
+        delay(100);
+        myauto = myauto+1;}
+      }
+    }

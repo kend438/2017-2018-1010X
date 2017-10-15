@@ -21,13 +21,14 @@ void operatorControl() {
 	bool liftDown;
 	bool liftScore;
 	bool limitOverride;
-	bool clawO;
-	bool clawC;
+	bool buttonArmDown;
+	bool buttonArm4;
 
 	float pid_Kp = 1.5;//was 0.5
 
  SensorTargetValue = encoderGet(encoder);
 
+encoderReset(encoderLift);
 	while (1) {
 
 		armRaise = joystickGetDigital(2,5,JOY_UP);
@@ -39,8 +40,8 @@ void operatorControl() {
 		liftDown = joystickGetDigital(1,6,JOY_DOWN);
 		liftScore = joystickGetDigital(1,7,JOY_DOWN);
 		limitOverride = joystickGetDigital(2,8, JOY_DOWN);
-		clawO = joystickGetDigital(2,6,JOY_DOWN);
-		clawC = joystickGetDigital(2,6,JOY_UP);
+		buttonArmDown = joystickGetDigital(2,6,JOY_DOWN);
+		buttonArm4 = joystickGetDigital(2,6,JOY_UP);
 
 		///********CLAW*********//
 		/*
@@ -65,9 +66,9 @@ void operatorControl() {
 		{
 			current = encoderGet(encoder);
 			liftCurrent = encoderGet(encoderLift);
-			if(liftCurrent > 470){liftSet(0);}
+			if(liftCurrent > 600){liftSet(0);}
 
-			if(liftCurrent < 470 && (current > 400 || current < 100)){liftSet(127);}
+			if(liftCurrent < 600 && (current > 400 || current < 190)){liftSet(127);}
 		}
 
 		else{liftSet(0);}
@@ -137,7 +138,13 @@ void operatorControl() {
 				}
 
  if(armDown == 1)
- {{SensorTargetValue = 470;}
+ {SensorTargetValue = 470;}
+
+ if(buttonArmDown == 1)
+ {SensorTargetValue = 470;}
+
+ if((buttonArm4) == 1)
+ {SensorTargetValue = 90;}
 
  if(sevenCone == 1)
  {
@@ -152,6 +159,5 @@ void operatorControl() {
  }
 
 	delay(20);
-}
 }
 }

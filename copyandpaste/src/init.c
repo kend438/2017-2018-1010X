@@ -26,7 +26,7 @@ delay(20);
   delay(20);
 
 while(1){
-lcdPrint(uart1, 2, "Auto%d", myauto);
+lcdPrint(uart1, 1, "Auto%d", myauto);
 delay(150);
 if(lcdReadButtons(uart1) == 1){ // changes auto
         lcdClear(uart1);
@@ -39,6 +39,42 @@ if(lcdReadButtons(uart1) == 4){ // changes auto
         delay(100);
         myauto = myauto+1;}
   if(isEnabled()){break;}
+
+  switch(myauto){ // changes depening on myauto value
+         case 1:
+           lcdSetText(uart1, 2, "left blue preload");
+         break;
+         case 2:
+           lcdSetText(uart1, 2, "right blue preload");
+         break;
+         case 3:
+           lcdSetText(uart1, 2, "left red preload");
+         break;
+         case 4:
+           lcdSetText(uart1, 2, "right red preload");
+         break;
+         case 5:
+           lcdSetText(uart1, 2, "hold mobile goal");
+         break;
+         case 6:
+           lcdSetText(uart1, 2, "right blue no");
+         break;
+         case 7:
+           lcdSetText(uart1, 2, "left red no");
+         break;
+         case 8:
+           lcdSetText(uart1, 2, "red right old preload");
+         break;
+         case 9:
+           lcdSetText(uart1, 2, "stationary right");
+         break;
+         case 10:
+           lcdSetText(uart1, 2, "skills blue right");
+         break;
+         case 11:
+           lcdSetText(uart1, 2, "stationary left");
+         break;
       }
       delay(20);
     }
+  }

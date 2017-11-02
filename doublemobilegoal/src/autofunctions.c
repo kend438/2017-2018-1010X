@@ -35,8 +35,8 @@ driveSet(direction*rightPower,direction*leftPower);
       delay(20);
 }
 }
-/*
-void gyroTurn(int direction, int targetTurn, int timeout)
+
+void gyroTurnPID(int direction, int targetTurn, int timeout)
 {
 gyroReset(gyro);
 
@@ -45,18 +45,17 @@ int error_last = 0;
 int error_diff = 0;
 int error_sum = 0;
 int pos =  abs(gyroGet(gyro));
-int kp = 0.1;
-int ki = 0;
-int kd = 0;
-int p;
-int d;
-int i;
+float kp = 0.2;
+float ki = 0;
+float kd = 0;
+float p;
+float d;
+float i;
 int startTime = millis();
 while((millis()-startTime)<timeout)
 {
 lcdPrint(uart1, 1, "pos%d", pos);
 
-int startTime = millis();
 if((millis()-startTime) > timeout){break;}
 
 pos = abs(gyroGet(gyro));
@@ -74,11 +73,11 @@ if(error < 5) //icap
 
 int power = p+i+d;
 
-driveSet(direction*p, direction*p);
+driveSet(direction*power, direction*power);
 delay(20);
 }
 }
-*/
+
 void gyroTurn(int direction, int targetTurn)
 {
   int rightPower;
@@ -88,20 +87,15 @@ void gyroTurn(int direction, int targetTurn)
 while(gyroAverage < targetTurn){
   gyroAverage = abs(gyroGet(gyro));
   lcdPrint(uart1, 2, "GyroPos%d", gyroAverage);
-  if(gyroAverage < targetTurn)
-  {
-    rightPower = 45;
-    leftPower = 45;
-  }
-  else if(gyroAverage < (0.75*targetTurn))
+  if(gyroAverage < (0.75*targetTurn))
   {
     rightPower = 90;
     leftPower = 90;
   }
-    else
+  else if(gyroAverage < targetTurn)
   {
-  rightPower = 0;
-  leftPower = 0;
+    rightPower = 45;
+    leftPower = 45;
   }
   driveSet(direction*leftPower, direction*rightPower);
   delay(20);
@@ -129,6 +123,22 @@ delay(20);
 }
 }
 
+void mobileGoalTwenty(int direction, int target){
+int pos = analogRead(1);
+while(direction == 1){
+ pos = analogRead(1);
+ if(pos>target)
+ {
+   pos = analogRead(1);
+   mgtwentySet(90);}
+ }
+ while(direction == -1){
+pos = analogRead(1);
+ if(pos<target)
+ {pos = analogRead(1);
+  mgtwentySet(-90);}
+}
+}
 void stop()
 {
   while (1) {

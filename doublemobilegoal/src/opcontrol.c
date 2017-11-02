@@ -67,8 +67,10 @@ void operatorControl() {
 	driveSet(power - turn, power + turn);
 
 //lcd
-int pos = abs(gyroGet(gyro));
-lcdPrint(uart1, 1, "pos%d", pos);
+int twenty = analogRead(1);
+lcdPrint(uart1, 2, "twenty%d", twenty);
+int tenpoint = encoderGet(encoderTen);
+lcdPrint(uart1, 1, "tenpoint%d", tenpoint);
 		delay(20);
 	}
 	delay(20);

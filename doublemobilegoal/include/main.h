@@ -17,13 +17,13 @@ extern "C" {
   #define DriveML_Dir -1
 
 #define DriveBL 5
-  #define DriveBL_Dir 1
+  #define DriveBL_Dir -1
 
 #define DriveFR 6
-  #define DriveFR_Dir 1
+  #define DriveFR_Dir -1
 
 #define DriveMR 7
-  #define DriveMR_Dir 1
+  #define DriveMR_Dir -1
 
 #define DriveBR 8
   #define DriveBR_Dir -1
@@ -35,6 +35,11 @@ extern "C" {
 #define dirR 1
 
 Encoder encoderTen;
+Encoder encoderL;
+Encoder encoderR;
+Gyro gyro;
+
+int myauto;
 
 void autonomous();
 void initializeIO();

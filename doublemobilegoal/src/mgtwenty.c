@@ -3,5 +3,5 @@
 
 void mgtwentySet(int power)
 {
-  motorSet(MG20, power);
+  motorSet(MG20, -power);
 }

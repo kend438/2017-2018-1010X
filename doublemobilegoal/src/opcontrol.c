@@ -5,59 +5,71 @@
 
 void operatorControl() {
 
-	float kp = 0.1;
+	float kp = 0.9;
 	int tenError;
 	int tenCurrent;
 	int tenPower;
 	int tenTarget;
-	int twentyError;
-	int twentyCurrent;
-	int twentyPower;
-	int twentyTarget;
-	encoderReset(encoderTen);
+	bool tenLiftUp;
+	bool tenLiftDown;
+	bool twentyLiftUp;
+	bool twentyLiftDown;
+	bool twUpPart;
+	bool twDownPart;
 
+	encoderReset(encoderTen);
+	tenTarget = encoderGet(encoderTen);
 
 	while (1) {
-
 	//%%%%%%%% JOYSTICK DEFINITIONS %%%%%%%%%//
-	int leftDrive = joystickGetAnalog(1,1);
-	int rightDrive = joystickGetAnalog(1,3);
-	bool tenLiftUp = joystickGetDigital(1,6, JOY_UP);
-	bool tenLiftDown = joystickGetDigital(1,6, JOY_DOWN);
-	bool twentyLiftUp = joystickGetDigital(1,5, JOY_UP);
-	bool twentyLiftDown = joystickGetDigital(1,5, JOY_DOWN);
+	tenLiftUp = joystickGetDigital(2,6, JOY_UP);
+	tenLiftDown = joystickGetDigital(2,6, JOY_DOWN);
+	twentyLiftUp = joystickGetDigital(1,5, JOY_UP);
+	twentyLiftDown = joystickGetDigital(1,5, JOY_DOWN);
+	twUpPart = joystickGetDigital(2,5, JOY_UP);
+	twDownPart = joystickGetDigital(2,5, JOY_DOWN);
 
 	//^^^^^^^^ MOBILE GOAL TEN ^^^^^^^^^^^//
-	while(tenLiftUp == 1 && tenLiftDown == 0){
+	if(tenLiftUp == 1 && tenLiftDown == 0){
 		mgtenSet(127);
+		tenTarget = encoderGet(encoderTen);
 	}
-	while(tenLiftUp == 0 && tenLiftDown == 1){
+	else if(tenLiftUp == 0 && tenLiftDown == 1){
 		mgtenSet(-127);
+		tenTarget = encoderGet(encoderTen);
 	}
-	while(tenLiftUp == 0 && tenLiftDown == 0){
+	else if(tenLiftUp == 0 && tenLiftDown == 0){
 		tenCurrent = encoderGet(encoderTen);
 		tenError = tenTarget - tenCurrent;
 		tenPower = tenError*kp;
 		mgtenSet(tenPower);
 	}
 	//$$$$$$$$$ MOBILE GOAL TWENTY $$$$$$$$$//
-	while(twentyLiftUp == 1 && twentyLiftDown == 0){
+	if((twentyLiftUp == 1 && twentyLiftDown == 0) || (twUpPart == 1 && twDownPart == 0)){
 		mgtwentySet(127);
-		twentyCurrent = analogRead(1);
+	//	twentyCurrent = analogRead(1);
 	}
-	while(twentyLiftUp == 0 && twentyLiftDown == 1){
+	else if((twentyLiftUp == 0 && twentyLiftDown == 1) || (twUpPart == 0 && twDownPart == 1)){
 		mgtwentySet(-127);
-		twentyCurrent = analogRead(1);
+	//	twentyCurrent = analogRead(1);
 	}
-	while(twentyLiftUp == 0 && twentyLiftDown == 0){
-		twentyCurrent = analogRead(1);
+	else if((twentyLiftUp == 0 && twentyLiftDown == 0) || (twUpPart == 0 && twDownPart == 0)){
+		mgtwentySet(0);
+	/*	twentyCurrent = analogRead(1);
 		twentyError = twentyTarget - twentyCurrent;
 		twentyPower = twentyError*kp;
-		mgtwentySet(twentyPower);
+		mgtwentySet(twentyPower);*/
 	}
 	//******** DRIVE ********//
-	driveSet(leftDrive-rightDrive, leftDrive+rightDrive);
+	int power, turn;
+	power = joystickGetAnalog(1,1);
+	turn = joystickGetAnalog(1,3);
+	driveSet(power - turn, power + turn);
 
+//lcd
+int pos = abs(gyroGet(gyro));
+lcdPrint(uart1, 1, "pos%d", pos);
 		delay(20);
 	}
+	delay(20);
 }

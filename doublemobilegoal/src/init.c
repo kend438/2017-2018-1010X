@@ -42,10 +42,10 @@ if(lcdReadButtons(uart1) == 4){ // changes auto
            lcdSetText(uart1, 2, "skills");
          break;
          case 2:
-           lcdSetText(uart1, 2, "blue left");
+           lcdSetText(uart1, 2, "skills PID");
          break;
          case 3:
-           lcdSetText(uart1, 2, "blue right");
+           lcdSetText(uart1, 2, "PID turning");
          break;
          case 4:
            lcdSetText(uart1, 2, "red left");

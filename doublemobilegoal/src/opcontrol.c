@@ -67,11 +67,16 @@ void operatorControl() {
 	driveSet(power - turn, power + turn);
 
 //lcd
+/*
 int gyroPos = gyroGet(gyro);
 lcdPrint(uart1, 2, "gyroPos%d", gyroPos);
 int tenpoint = encoderGet(encoderTen);
 lcdPrint(uart1, 1, "tenpoint%d", tenpoint);
-		delay(20);
+*/
+int L = encoderGet(encoderL);
+int R = encoderGet(encoderR);
+lcdPrint(uart1, 1, "encoderL%d", L);
+lcdPrint(uart1, 2, "encoderR%d", R);
 	}
 	delay(20);
 }

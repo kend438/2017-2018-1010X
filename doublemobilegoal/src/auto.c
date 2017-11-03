@@ -66,22 +66,43 @@ stop();
 break;
 
 case 2:
+autoDrive(-1, 200);
+mobileGoalTen(1,-480);
+autoDrive(-1, 500);
+delay(400);
+mobileGoalTen(-1, -235);
+delay(400);
 mobileGoalTwenty(-1,1545);
-mobileGoalTen(1,-200);
+delay(400);
+gyroTurnPID(-1,60,1500,1);
+delay(400);
+gyroTurnPID(1,8,1500,1);
+delay(400);
+autoDrive(1,300);
+delay(400);
+mobileGoalTwenty(1, 10);
+delay(400);
+autoDrive(1,600);
+mobileGoalTwenty(1, 10);
+delay(100);
 stop();
 break;
 
 case 3:
-gyroTurnPID(1,150, 3000, 1);
+//target always positive!!!
+gyroTurnPID(1,30, 3000, 1);
+delay(400);
 autoDrive(1,100);
 delay(400);
-gyroTurnPID(1,150,3000, 2);
+gyroTurnPID(1,30,3000, 2);
+delay(400);
 autoDrive(1,100);
 delay(400);
-gyroTurnPID(1,150,3000, 0.1);
+gyroTurnPID(1,30,3000, 0.1);
+delay(400);
 autoDrive(1,100);
 delay(400);
-gyroTurnPID(1,150, 3000, 4);
+gyroTurnPID(1,30, 3000, 4);
 stop();
 break;
 }

@@ -32,6 +32,7 @@ if(tics < target){
       rightPower = 0;}
     // checking R
 driveSet(direction*rightPower,direction*leftPower);
+lcdPrint(uart1, 1, "tics%d", tics);
       delay(20);
 }
 }
@@ -44,18 +45,19 @@ int error = 0;
 int error_last = 0;
 int error_diff = 0;
 int error_sum = 0;
-int pos =  abs(gyroGet(gyro));
+int pos =  0;
 float ki = 0;
 float kd = 0;
 float p;
 float d;
 float i;
+int power;
+
 int startTime = millis();
 while((millis()-startTime)<timeout)
 {
 lcdPrint(uart1, 1, "pos%d", pos);
-
-if((millis()-startTime) > timeout){break;}
+lcdPrint(uart1, 2, "error%d", error);
 
 pos = abs(gyroGet(gyro));
 error =  targetTurn - pos;
@@ -65,15 +67,15 @@ error_last = error;
 error_sum  += error; // same as errorsum  = errorsum + error
 
 p = kp * error;
-/*
+
 d  = kd * error_diff;
 if(error < 5) //icap
 {i = ki * error_sum;}
-*/
-int power = p+i+d;
+
+power = p+i+d;
 
 driveSet(direction*power, direction*power);
-delay(20);
+delay(40);
 }
 }
 
@@ -99,6 +101,8 @@ while(gyroAverage < targetTurn){
   driveSet(direction*leftPower, direction*rightPower);
   delay(20);
 }
+driveSet(-direction*15, -direction*15);
+driveSet(0,0);
 }
 
 void mobileGoalTen(int direction, int target){

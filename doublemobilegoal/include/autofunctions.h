@@ -5,7 +5,7 @@ void autoDrive(int direction, int target);
 
 void gyroTurn(int direction, int targetTurn);
 
-void gyroTurnPID(int direction, int targetTurn, int timeout);
+void gyroTurnPID(int direction, int targetTurn, int timeout, float kp);
 
 void mobileGoalTen(int direction, int target);
 

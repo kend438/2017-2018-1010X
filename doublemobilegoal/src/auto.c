@@ -21,32 +21,31 @@ void autonomous() {
 //mg20 in 1
   switch(myauto){
 case 1:
-mobileGoalTwenty(-1,1445);
-autoDrive(1, 1100);
+autoDrive(-1, 200);
+mobileGoalTen(1,-480);
+autoDrive(-1, 500);
+delay(400);
+mobileGoalTen(-1, -235);
+delay(400);
+mobileGoalTwenty(-1,1545);
+delay(400);
+gyroTurn(-1,60);
+delay(400);
+gyroTurn(1,8);
+delay(400);
+autoDrive(1,300);
 delay(400);
 mobileGoalTwenty(1, 10);
-delay(200);
-autoDrive(1,100);
-gyroTurn(1,10);
-autoDrive(1,750);
-gyroTurn(1,10);
-autoDrive(1,550);
-gyroTurn(-1,10);
-autoDrive(1,550);///////////////new
-/////mobile goal scoring
-mobileGoalTwenty(-1, 1545);
-autoDrive(1,40);///////////////new
-autoDrive(1,100);
+delay(400);
+autoDrive(1,600);
 mobileGoalTwenty(1, 10);
 delay(100);
 //finished 20 point
-autoDrive(1,250);
-delay(500);
-gyroTurn(-1, 50);
+autoDrive(1,500);
 delay(500);
 mobileGoalTwenty(-1, 1545);
 delay(500);
-autoDrive(1,100);
+autoDrive(-1,100);
 delay(500);
 gyroTurn(-1, 45);
 delay(500);
@@ -73,8 +72,16 @@ stop();
 break;
 
 case 3:
-gyroTurnPID(1,150, 2000);
-autoDrive(1,700);
+gyroTurnPID(1,150, 3000, 1);
+autoDrive(1,100);
+delay(400);
+gyroTurnPID(1,150,3000, 2);
+autoDrive(1,100);
+delay(400);
+gyroTurnPID(1,150,3000, 0.1);
+autoDrive(1,100);
+delay(400);
+gyroTurnPID(1,150, 3000, 4);
 stop();
 break;
 }

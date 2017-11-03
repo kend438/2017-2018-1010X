@@ -25,7 +25,7 @@ void operatorControl() {
 	tenLiftUp = joystickGetDigital(2,6, JOY_UP);
 	tenLiftDown = joystickGetDigital(2,6, JOY_DOWN);
 	twentyLiftUp = joystickGetDigital(1,5, JOY_UP);
-	twentyLiftDown = joystickGetDigital(1,5, JOY_DOWN);
+	twentyLiftDown = joystickGetDigital(1,5, JOY_DOWN); //out
 	twUpPart = joystickGetDigital(2,5, JOY_UP);
 	twDownPart = joystickGetDigital(2,5, JOY_DOWN);
 
@@ -67,8 +67,8 @@ void operatorControl() {
 	driveSet(power - turn, power + turn);
 
 //lcd
-int twenty = analogRead(1);
-lcdPrint(uart1, 2, "twenty%d", twenty);
+int gyroPos = gyroGet(gyro);
+lcdPrint(uart1, 2, "gyroPos%d", gyroPos);
 int tenpoint = encoderGet(encoderTen);
 lcdPrint(uart1, 1, "tenpoint%d", tenpoint);
 		delay(20);

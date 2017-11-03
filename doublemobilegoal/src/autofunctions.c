@@ -36,7 +36,7 @@ driveSet(direction*rightPower,direction*leftPower);
 }
 }
 
-void gyroTurnPID(int direction, int targetTurn, int timeout)
+void gyroTurnPID(int direction, int targetTurn, int timeout, float kp)
 {
 gyroReset(gyro);
 
@@ -45,7 +45,6 @@ int error_last = 0;
 int error_diff = 0;
 int error_sum = 0;
 int pos =  abs(gyroGet(gyro));
-float kp = 0.2;
 float ki = 0;
 float kd = 0;
 float p;
@@ -66,11 +65,11 @@ error_last = error;
 error_sum  += error; // same as errorsum  = errorsum + error
 
 p = kp * error;
-
+/*
 d  = kd * error_diff;
 if(error < 5) //icap
 {i = ki * error_sum;}
-
+*/
 int power = p+i+d;
 
 driveSet(direction*power, direction*power);
@@ -87,10 +86,10 @@ void gyroTurn(int direction, int targetTurn)
 while(gyroAverage < targetTurn){
   gyroAverage = abs(gyroGet(gyro));
   lcdPrint(uart1, 2, "GyroPos%d", gyroAverage);
-  if(gyroAverage < (0.75*targetTurn))
+  if(gyroAverage < (0.6*targetTurn))
   {
-    rightPower = 90;
-    leftPower = 90;
+    rightPower = 55;
+    leftPower = 55;
   }
   else if(gyroAverage < targetTurn)
   {
@@ -104,40 +103,41 @@ while(gyroAverage < targetTurn){
 
 void mobileGoalTen(int direction, int target){
 int pos = encoderGet(encoderTen);
-int liftPower;
 if(direction == 1){
-while(pos<target)
+pos= encoderGet(encoderTen);
+while(pos>target)
 {
 pos = encoderGet(encoderTen);
-if(pos < target){liftPower = 127;}
+if(pos>target){mgtenSet(-127);}
 }
-if(direction == -1){
-  while(pos > target){
+}
+else{
+  while(pos<target){
   pos = encoderGet(encoderTen);
-  if(pos > target){liftPower = -127;}
+  if(pos<target){mgtenSet(127);}
   }
 }
-else{liftPower = 0;}
-mgtenSet(liftPower);
-delay(20);
+mgtenSet(-30*direction);
 }
-}
+
 
 void mobileGoalTwenty(int direction, int target){
 int pos = analogRead(1);
-while(direction == 1){
+if(direction == 1){
  pos = analogRead(1);
- if(pos>target)
+ while(pos>target)
  {
    pos = analogRead(1);
-   mgtwentySet(90);}
+   mgtwentySet(90);
  }
- while(direction == -1){
+ }
+else{
 pos = analogRead(1);
- if(pos<target)
+ while(pos<target)
  {pos = analogRead(1);
   mgtwentySet(-90);}
 }
+mgtwentySet(0);
 }
 void stop()
 {

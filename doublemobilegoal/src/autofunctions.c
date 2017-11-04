@@ -37,7 +37,7 @@ lcdPrint(uart1, 1, "tics%d", tics);
 }
 }
 
-void gyroTurnPID(int direction, int targetTurn, int timeout, float kp)
+void gyroTurnPID(int direction, int targetTurn, int timeout, float kp, float kd)
 {
 gyroReset(gyro);
 
@@ -47,17 +47,16 @@ int error_diff = 0;
 int error_sum = 0;
 int pos =  0;
 float ki = 0;
-float kd = 0;
 float p;
 float d;
 float i;
-int power;
+int drivepower;
 
 int startTime = millis();
 while((millis()-startTime)<timeout)
 {
-lcdPrint(uart1, 1, "pos%d", pos);
-lcdPrint(uart1, 2, "error%d", error);
+lcdPrint(uart1, 1, "error%d", error);
+lcdPrint(uart1, 2, "power%d", drivepower);
 
 pos = abs(gyroGet(gyro));
 error =  targetTurn - pos;
@@ -72,11 +71,17 @@ d  = kd * error_diff;
 if(error < 5) //icap
 {i = ki * error_sum;}
 
-power = p+i+d;
+drivepower = p+i+d;
+if(drivepower>90){drivepower = 90;}
+if(drivepower<-90){drivepower = -90;}
 
-driveSet(direction*power, direction*power);
+int leftside = direction*drivepower;
+int rightside = direction*drivepower;
+driveSet(leftside, rightside);
 delay(40);
 }
+lcdSetText(uart1,1,"done");
+delay(20);
 }
 
 void gyroTurn(int direction, int targetTurn)

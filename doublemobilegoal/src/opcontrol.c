@@ -21,6 +21,12 @@ void operatorControl() {
 	tenTarget = encoderGet(encoderTen);
 
 	while (1) {
+		//lcd
+		int L = encoderGet(encoderTen);
+		int R = encoderGet(encoderR);
+		lcdPrint(uart1, 1, "ten%d", L);
+		lcdPrint(uart1, 2, "encoderR%d", R);
+
 	//%%%%%%%% JOYSTICK DEFINITIONS %%%%%%%%%//
 	tenLiftUp = joystickGetDigital(2,6, JOY_UP);
 	tenLiftDown = joystickGetDigital(2,6, JOY_DOWN);
@@ -66,17 +72,6 @@ void operatorControl() {
 	turn = joystickGetAnalog(1,3);
 	driveSet(power - turn, power + turn);
 
-//lcd
-/*
-int gyroPos = gyroGet(gyro);
-lcdPrint(uart1, 2, "gyroPos%d", gyroPos);
-int tenpoint = encoderGet(encoderTen);
-lcdPrint(uart1, 1, "tenpoint%d", tenpoint);
-*/
-int L = encoderGet(encoderL);
-int R = encoderGet(encoderR);
-lcdPrint(uart1, 1, "encoderL%d", L);
-lcdPrint(uart1, 2, "encoderR%d", R);
 	}
 	delay(20);
 }

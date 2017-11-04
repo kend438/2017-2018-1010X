@@ -39,10 +39,10 @@ if(lcdReadButtons(uart1) == 4){ // changes auto
 
   switch(myauto){ // changes depening on myauto value
          case 1:
-           lcdSetText(uart1, 2, "skills");
+           lcdSetText(uart1, 2, "skills PID");
          break;
          case 2:
-           lcdSetText(uart1, 2, "skills PID");
+           lcdSetText(uart1, 2, "R 10 point");
          break;
          case 3:
            lcdSetText(uart1, 2, "PID turning");
@@ -74,5 +74,5 @@ if(lcdReadButtons(uart1) == 4){ // changes auto
       }
       delay(20);
     }
-
+      lcdClear(uart1);
 }

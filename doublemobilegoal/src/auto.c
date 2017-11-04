@@ -125,8 +125,44 @@ delay(100);
 autoDrive(1,200);
 delay(400);
 mobileGoalTen(-1,-235);
-
-
+delay(100);
+//scoring extra mobile goal
+gyroTurnPID(1,47,1500,4,5);
+delay(100);
+mobileGoalTwenty(-1, 1545);
+delay(100);
+autoDrive(1,1100);
+delay(100);
+mobileGoalTwenty(1, 10);
+delay(100);
+//returning to score last 10 point
+autoDrive(-1,100);
+delay(100);
+gyroTurnPID(1,10,1000,4,5);
+delay(100);
+autoDrive(-1,750);
+delay(100);
+gyroTurnPID(1,120,1200,4,5);
+delay(100);
+autoDrive(1,200);
+delay(100);
+gyroTurnPID(-1,10,1000,4,5);
+delay(100);
+autoDrive(1,50);
+delay(100);///////////////new
+/////mobile goal scoring
+mobileGoalTwenty(-1,1545);
+delay(100);
+autoDrive(1,40);///////////////new
+delay(100);
+autoDrive(-1,100);
+delay(100);
+mobileGoalTwenty(1,10);
+delay(100);
+autoDrive(-1,220);
+delay(100);
+gyroTurnPID(1,47,1000,4,5);
+autoDrive(-1,1100);
 stop();
 break;
 

@@ -46,7 +46,7 @@ delay(100);
 gyroTurnPID(-1,90,1500,4,5);
 delay(100);
 //first turn
-autoDrive(1,337);
+autoDrive(1,330);//was 337
 delay(100);
 gyroTurnPID(1,90,1500,4,5);
 delay(100);
@@ -58,14 +58,14 @@ mobileGoalTwenty(-1, 1545);
 delay(100);
 autoDrive(-1,80);
 delay(400);
-mobileGoalTwenty(1, 1000);
+mobileGoalTwenty(1, 10);
 delay(100);
 //scored 20
 autoDrive(-1,220);
 delay(100);
 gyroTurnPID(-1,93,1500,4,5);
 delay(100);
-autoDrive(1,125);
+autoDrive(1,129);// was 125
 gyroTurnPID(-1,90,1500,4,5);
 delay(100);
 autoDrive(-1,135);
@@ -82,12 +82,12 @@ mobileGoalTen(-1,-235);
 mobileGoalTwenty(-1,1545);
 delay(400);
 autoDrive(1,450);
-delay(400);
+delay(700);
 mobileGoalTwenty(1, 10);
 delay(400);
 //finish 20 #2
 
-gyroTurnPID(-1,188,1500,4,5);
+gyroTurnPID(-1,185,1500,4,5);
 delay(400);
 mobileGoalTen(1,-390);
 autoDrive(-1, 1500);
@@ -96,14 +96,14 @@ mobileGoalTen(-1, -225);
 delay(400);
 //finished 10#2
 
-autoDrive(-1,300);
+autoDrive(-1,240);
 delay(100);
-gyroTurnPID(-1,87,1500,4,5);
+gyroTurnPID(-1,89,1500,4,5);
 delay(100);
-autoDrive(-1,330);
+autoDrive(-1,350);
 delay(100);
 
-gyroTurnPID(-1,87,1500,4,5);
+gyroTurnPID(-1,88,1500,4,5);
 delay(100);
 autoDrive(1,400);
 delay(100);
@@ -113,11 +113,11 @@ autoDrive(-1,100);
 delay(100);
 mobileGoalTwenty(1, 10);
 delay(100);
-
+//scored second side 20
 autoDrive(-1,300);
 delay(100);
 gyroTurnPID(-1,187,1500,4,5);
-autoDrive(-1,200);
+autoDrive(-1,300);
 mobileGoalTen(1,-420);
 delay(100);
 autoDrive(-1,100);
@@ -127,29 +127,32 @@ delay(400);
 mobileGoalTen(-1,-235);
 delay(100);
 //scoring extra mobile goal
-gyroTurnPID(1,47,1500,4,5);
+
+
+
+gyroTurnPID(1,59,1500,4,5);
 delay(100);
 mobileGoalTwenty(-1, 1545);
-delay(100);
-autoDrive(1,1100);
-delay(100);
+delay(200);
+autoDrive(1,1300);
+delay(500);
 mobileGoalTwenty(1, 10);
 delay(100);
-//returning to score last 10 point
-autoDrive(-1,100);
+//returning to score last 10 point (20 point intake)
+/*autoDrive(-1,100);
 delay(100);
 gyroTurnPID(1,10,1000,4,5);
+delay(100);*/
+gyroTurnPID(-1,8,1500,4,5);
+autoDrive(-1,700);
 delay(100);
-autoDrive(-1,750);
+gyroTurnPID(1,45,1200,4,5);
 delay(100);
-gyroTurnPID(1,120,1200,4,5);
+autoDrive(-1,850);
 delay(100);
-autoDrive(1,200);
+gyroTurnPID(1,90,1000,4,5);
 delay(100);
-gyroTurnPID(-1,10,1000,4,5);
-delay(100);
-autoDrive(1,50);
-delay(100);///////////////new
+autoDrive(1,190);
 /////mobile goal scoring
 mobileGoalTwenty(-1,1545);
 delay(100);
@@ -161,49 +164,111 @@ mobileGoalTwenty(1,10);
 delay(100);
 autoDrive(-1,220);
 delay(100);
-gyroTurnPID(1,47,1000,4,5);
-autoDrive(-1,1100);
+gyroTurnPID(-1,50,1000,4,5);
+mobileGoalTen(1,-420);
+autoDrive(-1,1500);
 stop();
 break;
 
 case 2:
 mobileGoalTwenty(-1,1545);
-delay(100);
-autoDrive(1,450);
-delay(100);
+delay(200);
+autoDrive(1,1200);
+delay(400);
 mobileGoalTwenty(1, 10);
 delay(100);
-//got 20
-
-gyroTurnPID(-1,184,1500,4,5);
+autoDrive(-1,700);
 delay(100);
-///turn around
-
-autoDrive(1,450);
+gyroTurnPID(1,145,1500,4,5);
+delay(400);
+autoDrive(1,200);
 delay(100);
 mobileGoalTwenty(-1,1545);
 delay(100);
-autoDrive(-1,100);
+autoDrive(1,100);
 delay(100);
-mobileGoalTwenty(1, 10);
+autoDrive(-1,350);
+delay(100);
+//got 20
+
+
+stop();
+break;
+
+case 4:
+autoDrive(1,1500);
+gyroTurnPID(-1,136,1500,4,5);
+mobileGoalTwenty(-1,1545);
+//got 20
 
 
 stop();
 break;
 case 3:
-//target always positive!!!
-gyroTurnPID(1,60, 3000, 4, 5);
+mobileGoalTwenty(-1,1545);
+delay(200);
+autoDrive(1,1200);
 delay(400);
-gyroTurnPID(1,60, 3000, 4,6);
+mobileGoalTwenty(1, 10);
+delay(100);
+autoDrive(-1,700);
+delay(100);
+gyroTurnPID(-1,145,1500,4,5);
 delay(400);
-gyroTurnPID(1,60,3000,4,7);
+autoDrive(1,200);
+delay(100);
+mobileGoalTwenty(-1,1545);
+delay(100);
+autoDrive(1,100);
+delay(100);
+autoDrive(-1,350);
+delay(100);
+stop();
+break;
+
+case 5:
+mobileGoalTwenty(-1,1545);
+delay(200);
+autoDrive(1,1200);
 delay(400);
-gyroTurnPID(1,90, 3000, 4, 5);
+mobileGoalTwenty(1, 10);
+delay(100);
+autoDrive(-1,300);
+delay(100);
+gyroTurnPID(-1,210,1500,4,5);
 delay(400);
-gyroTurnPID(1,90, 3000, 4,6);
+autoDrive(1,200);
+delay(100);
+mobileGoalTwenty(-1,1545);
+delay(100);
+autoDrive(1,100);
+delay(100);
+autoDrive(-1,350);
+delay(100);
+stop();
+break;
+
+case 6:
+mobileGoalTwenty(-1,1545);
+delay(200);
+autoDrive(1,1200);
 delay(400);
-gyroTurnPID(1,90,3000,4,7);
+mobileGoalTwenty(1, 10);
+delay(100);
+autoDrive(-1,300);
+delay(100);
+gyroTurnPID(1,210,1500,4,5);
+delay(400);
+autoDrive(1,200);
+delay(100);
+mobileGoalTwenty(-1,1545);
+delay(100);
+autoDrive(1,100);
+delay(100);
+autoDrive(-1,350);
+delay(100);
 stop();
 break;
 }
+
 }

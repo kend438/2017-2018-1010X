@@ -4,13 +4,14 @@
 #include "fourbar.h"
 #include "mg.h"
 #include "rollers.h"
-
+#include "autofunctions.h"
+//fourbar down 510, up 260
 void operatorControl() {
 
-	float kp = 0.8;
+	float kp = 1; //
+	float kd = 6.8;
 	int tenError;
 	int tenCurrent;
-	int tenPower;
 	int tenTarget;
 	int twentyError;
 	int twentyCurrent;
@@ -25,7 +26,17 @@ void operatorControl() {
 	int power, turn;
 	bool rollUp;
 	bool rollDown;
-	float twentykp = 0.05;
+	int pid;
+	int errorlast;
+	int errordiff;
+	int p;
+	int d;
+	bool liftADown;
+	float tkp = 0.3;
+	bool fourPU;
+	bool fourPD;
+	bool scoreOne;
+	bool scoremg;
 
 	encoderReset(encoderTen);
 	tenTarget = encoderGet(encoderTen);
@@ -33,22 +44,26 @@ void operatorControl() {
 
 	while (1) {
 		//lcd
-		int L = encoderGet(encoderTen);
-		int R = analogRead(1);
-		lcdPrint(uart1, 1, "dr4b%d", L);
-		lcdPrint(uart1, 2, "fourbar%d", R);
+		int L = analogRead(3);
+		int R = encoderGet(encoderTen);
+		lcdPrint(uart1, 1, "mg%d", L);
+		lcdPrint(uart1, 2, "dr4b%d", R);
 
 	//%%%%%%%% JOYSTICK DEFINITIONS %%%%%%%%%//
 	mgLiftUp = joystickGetDigital(1,6, JOY_UP);
 	mgLiftDown = joystickGetDigital(1,6, JOY_DOWN);
 	liftUp = joystickGetDigital(1,5, JOY_UP);
 	liftDown = joystickGetDigital(1,5, JOY_DOWN); //out
-	fourUp = joystickGetDigital(2,5, JOY_UP);
-	fourDown = joystickGetDigital(2,5, JOY_DOWN);
+	fourUp = joystickGetDigital(2,7, JOY_UP);
+	fourDown = joystickGetDigital(2,7, JOY_DOWN);
+	fourPU = joystickGetDigital(2,5, JOY_UP);
+	fourPD = joystickGetDigital(2,5, JOY_DOWN);
 	power = joystickGetAnalog(1,1);
 	turn = joystickGetAnalog(1,3);
 	rollUp = joystickGetDigital(2,6,JOY_UP);
 	rollDown = joystickGetDigital(2,6,JOY_DOWN);
+	scoreOne= joystickGetDigital(2,8,JOY_UP);
+	scoremg = joystickGetDigital(1,8,JOY_DOWN);
 
 	//^^^^^^^^ MOBILE GOAL TEN ^^^^^^^^^^^//
 	if(mgLiftUp == 1 && mgLiftDown == 0){
@@ -69,8 +84,17 @@ void operatorControl() {
 		mgSet(0);
 	}
 
-
-
+	if(scoremg == 1){
+		if(analogRead(3)<2650){
+			mgSet(-90);
+		}
+		else{mgSet(0);}
+	}
+/*
+if(scoreOne ==1){
+scoreoneauto(5000);
+}
+*/
 	//$$$$$$$$$ fourbar $$$$$$$$$//
 	if((fourUp == 1 && fourDown == 0)){
 		fourSet(-127);
@@ -83,9 +107,20 @@ void operatorControl() {
 	else if((fourUp == 0 && fourDown == 0)){
 		twentyCurrent = analogRead(1);
 		twentyError = twentyTarget - twentyCurrent;
-		twentyPower = twentyError*kp;
-		fourSet(0);
+		twentyPower = twentyError*tkp;
+		fourSet(twentyPower);
 	}
+
+
+	/////presets fourbar
+
+	if(fourPU ==1 && fourPD ==0){
+		twentyTarget = 1300;
+	}
+	if(fourPU ==0 && fourPD ==1){
+		twentyTarget = 3200;
+	}
+
 
 
 
@@ -109,11 +144,20 @@ void operatorControl() {
 	else if((liftUp == 0 && liftDown == 0)){
 		tenCurrent = encoderGet(encoderTen);
 		tenError = tenTarget - tenCurrent;
-		tenPower = tenError*kp;
-		liftSet(tenPower);
+		p = tenError*kp;
+errordiff = tenError - errorlast;
+errorlast = tenError;
+d = kd * errordiff;
+pid = p +d;
+		liftSet(pid);
 
 	}
-
+/*
+////present double reverse down
+if((liftADown == 1)){
+	tenTarget = 0;
+}
+*/
 
 ////////rollers
 if((rollUp == 1 && rollDown == 0)){
@@ -125,7 +169,7 @@ else if((rollUp == 0 && rollDown == 1)){
 //	twentyCurrent = analogRead(1);
 }
 else if((rollUp == 0 && rollDown == 0)){
-	rollerSet(-20);
+	rollerSet(-14);
 
 }
 	delay(20);

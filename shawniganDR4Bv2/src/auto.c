@@ -1,30 +1,80 @@
-/** @file auto.c
- * @brief File for autonomous code
- *
- * This file should contain the user autonomous() function and any functions related to it.
- *
- * Any copyright is dedicated to the Public Domain.
- * http://creativecommons.org/publicdomain/zero/1.0/
- *
- * PROS contains FreeRTOS (http://www.freertos.org) whose source code may be
- * obtained from http://sourceforge.net/projects/freertos/files/ or on request.
- */
-
 #include "main.h"
+#include "drive.h"
+#include "lift.h"
+#include "fourbar.h"
+#include "mg.h"
+#include "rollers.h"
+#include "autofunctions.h"
 
-/*
- * Runs the user autonomous code. This function will be started in its own task with the default
- * priority and stack size whenever the robot is enabled via the Field Management System or the
- * VEX Competition Switch in the autonomous mode. If the robot is disabled or communications is
- * lost, the autonomous task will be stopped by the kernel. Re-enabling the robot will restart
- * the task, not re-start it from where it left off.
- *
- * Code running in the autonomous task cannot access information from the VEX Joystick. However,
- * the autonomous function can be invoked from another task if a VEX Competition Switch is not
- * available, and it can access joystick information if called in this way.
- *
- * The autonomous task may exit, unlike operatorControl() which should never exit. If it does
- * so, the robot will await a switch to another mode or disable/enable cycle.
- */
+
 void autonomous() {
+ //back drive is 1
+ //drive forwards is -1
+ // 1 is clockwise
+ //-1 is counterclockwise
+
+//twenty all in out 4095
+//twenty in 10
+//ten out -490
+//ten in-232
+
+//mg20out -1
+//mg20 in 1
+ switch(myauto){
+   case 1: //right blue coney preload stack
+//fourbar(1,250);
+  // fourbar(-1,500);
+   lift(1,-130);
+   mobileGoalTwenty(-1,4095);//out
+   autoDrive(-1, 1280);
+   delay(400);
+   mobileGoalTwenty(1, 2200);
+   delay(400);
+   autoDrive(1,1000);
+   gyroTurn(1,45);
+   autoDrive(1,210);//was300
+   gyroTurn(1,73);//78
+   autoDrive(-1,100);
+   mobileGoalTwenty(-1,4095);
+   lift(-1,0);
+   delay(100);
+   rollerSet(90);
+   delay(200);
+   lift(1,-130);
+   delay(200);
+   autoDrive(-1,30);///////////////new
+   autoDrive(1,220);
+   mobileGoalTwenty(1, 2200);
+   autoDrive(1,20);
+   stop();
+   break;
+
+   case 2: //left blue coney preload stack
+//fourbar(1,250);
+  // fourbar(-1,500);
+   lift(1,-130);
+   mobileGoalTwenty(-1,4095);//out
+   autoDrive(-1, 1280);
+   delay(400);
+   mobileGoalTwenty(1, 2200);
+   delay(400);
+   autoDrive(1,1000);
+   gyroTurn(-1,45);
+   autoDrive(1,210);//was300
+   gyroTurn(-1,73);//78
+   autoDrive(-1,100);
+   mobileGoalTwenty(-1,4095);
+   lift(-1,0);
+   delay(100);
+   rollerSet(90);
+   delay(200);
+   lift(1,-130);
+   delay(200);
+   autoDrive(-1,30);///////////////new
+   autoDrive(1,220);
+   mobileGoalTwenty(1, 2200);
+   autoDrive(1,20);
+   stop();
+   break;
+}
 }

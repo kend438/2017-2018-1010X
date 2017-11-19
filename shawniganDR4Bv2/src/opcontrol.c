@@ -8,8 +8,8 @@
 //fourbar down 510, up 260
 void operatorControl() {
 
-	float kp = 1; //
-	float kd = 6.8;
+	float kp = 0.85; //
+	float kd = 7;//6.8
 	int tenError;
 	int tenCurrent;
 	int tenTarget;
@@ -46,8 +46,8 @@ void operatorControl() {
 		//lcd
 		int L = analogRead(3);
 		int R = encoderGet(encoderTen);
-		lcdPrint(uart1, 1, "mg%d", L);
-		lcdPrint(uart1, 2, "dr4b%d", R);
+		lcdPrint(uart1, 1, "tenError%d", tenError);
+		lcdPrint(uart1, 2, "mg%d", L);
 
 	//%%%%%%%% JOYSTICK DEFINITIONS %%%%%%%%%//
 	mgLiftUp = joystickGetDigital(1,6, JOY_UP);

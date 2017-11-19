@@ -39,19 +39,19 @@ if(lcdReadButtons(uart1) == 4){ // changes auto
 
   switch(myauto){ // changes depening on myauto value
          case 1:
-           lcdSetText(uart1, 2, "right");
+           lcdSetText(uart1, 2, "right 10");
          break;
          case 2:
-           lcdSetText(uart1, 2, "left");
+           lcdSetText(uart1, 2, "left 10");
          break;
          case 3:
-           lcdSetText(uart1, 2, "L 10 point?");
+           lcdSetText(uart1, 2, "NONONONONONO");
          break;
          case 4:
-           lcdSetText(uart1, 2, "forward mg");
+           lcdSetText(uart1, 2, "right 5");
          break;
          case 5:
-           lcdSetText(uart1, 2, "R 5 point");
+           lcdSetText(uart1, 2, ";left 5");
          break;
          case 6:
            lcdSetText(uart1, 2, "L 5 point");

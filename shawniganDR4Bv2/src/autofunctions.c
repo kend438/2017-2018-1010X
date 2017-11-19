@@ -137,14 +137,14 @@ if(direction == 1){
  while(pos>target)
  {
    pos = analogRead(3);
-   mgSet(90);
+   mgSet(127);
  }
  }
 else{
 pos = analogRead(3);
  while(pos<target)
  {pos = analogRead(3);
-  mgSet(-90);}
+  mgSet(-127);}
 }
 mgSet(0);
 }

@@ -5,11 +5,17 @@
 #include "mg.h"
 #include "rollers.h"
 #include "autofunctions.h"
-//fourbar down 510, up 260
 void operatorControl() {
 
-	float kp = 0.85; //
-	float kd = 7;//6.8
+	//mg all the way in 1820
+	//mg all the way out 235
+	//mg score 1400
+	//mg pick up safe 800
+//fourbar down 3200, up 1200
+//double reverse all the way up -470, all the way down is 0
+//double reverse up is negative, down is positive
+	float kp = 5; //
+	float kd = 0;//6.8
 	int tenError;
 	int tenCurrent;
 	int tenTarget;
@@ -37,17 +43,21 @@ void operatorControl() {
 	bool fourPD;
 	bool scoreOne;
 	bool scoremg;
+	bool safemg;
+	bool reset;
+	bool cancel;
 
 	encoderReset(encoderTen);
 	tenTarget = encoderGet(encoderTen);
 	twentyTarget = analogRead(1);
-
+int armtar = 0;
 	while (1) {
+
 		//lcd
-		int L = analogRead(3);
-		int R = encoderGet(encoderTen);
-		lcdPrint(uart1, 1, "tenError%d", tenError);
-		lcdPrint(uart1, 2, "mg%d", L);
+		tenTarget = encoderGet(encoderTen);
+		//int L = analogRead(3);
+		lcdPrint(uart1, 1, "dr%d", tenTarget);
+		lcdPrint(uart1, 2, "armtar%d", armtar);
 
 	//%%%%%%%% JOYSTICK DEFINITIONS %%%%%%%%%//
 	mgLiftUp = joystickGetDigital(1,6, JOY_UP);
@@ -63,8 +73,30 @@ void operatorControl() {
 	rollUp = joystickGetDigital(2,6,JOY_UP);
 	rollDown = joystickGetDigital(2,6,JOY_DOWN);
 	scoreOne= joystickGetDigital(2,8,JOY_UP);
+	reset = joystickGetDigital(2,8,JOY_UP);
 	scoremg = joystickGetDigital(1,8,JOY_DOWN);
+	safemg = joystickGetDigital(1,8,JOY_UP);
+	cancel = joystickGetDigital(2,7,JOY_RIGHT);
 
+/*
+//// auto stack testing
+if(reset == 1){
+	if(cancel == 1){break;}
+	int armpos = encoderGet(encoderTen);
+	lift(1,(armpos-50));
+	fourAUp();
+	lift(-1,(armpos+30));
+	rollerSet(127);
+	delay(350);
+	lift(1, (armpos-50));
+  twentyTarget = 3200;
+	delay(60);
+	fourADown();
+	delay(10);
+	lift(-1,20);
+
+}
+*/
 	//^^^^^^^^ MOBILE GOAL TEN ^^^^^^^^^^^//
 	if(mgLiftUp == 1 && mgLiftDown == 0){
 		mgSet(127);
@@ -84,11 +116,18 @@ void operatorControl() {
 		mgSet(0);
 	}
 
-	if(scoremg == 1){
-		if(analogRead(3)<2650){
-			mgSet(-90);
+	if(safemg == 1){
+		if(analogRead(3)<1000){
+			mgSet(127);
 		}
 		else{mgSet(0);}
+	}
+
+if(scoremg == 1){
+	if(analogRead(3)>1000){
+		mgSet(-90);
+	}
+	else{mgSet(0);}
 	}
 /*
 if(scoreOne ==1){

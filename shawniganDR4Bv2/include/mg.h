@@ -4,4 +4,7 @@
 #include "main.h"
 
 void mgSet(int power);
+
+void mgTask (void*ignore);
+
 #endif

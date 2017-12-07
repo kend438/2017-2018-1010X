@@ -39,13 +39,13 @@ if(lcdReadButtons(uart1) == 4){ // changes auto
 
   switch(myauto){ // changes depening on myauto value
          case 1:
-           lcdSetText(uart1, 2, "right 10");
+           lcdSetText(uart1, 2, "right two cones"); //ised tp ne right 10
          break;
          case 2:
-           lcdSetText(uart1, 2, "left 10");
+           lcdSetText(uart1, 2, "left two cones");
          break;
          case 3:
-           lcdSetText(uart1, 2, "NONONONONONO");
+           lcdSetText(uart1, 2, "test");
          break;
          case 4:
            lcdSetText(uart1, 2, "right 5");

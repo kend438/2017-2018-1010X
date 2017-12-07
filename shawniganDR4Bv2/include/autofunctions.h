@@ -15,9 +15,15 @@ void lift(int direction, int target);
 
 void fourbar(int direction, int target);
 
-void rollerAuto(int direction, int power);
-
 void scoreoneauto(int timeout);
+
+void fourAUp();
+
+void fourADown();
+
+void rollOut(int timeout);
+
+void rollIn(int timeout);
 
 void stop();
 #endif

@@ -50,12 +50,24 @@ extern "C" {
 #define dirL 1
 #define dirR 1
 
+#define fourPot 1
+#define mgPot 3
+
+
 Encoder encoderTen;
 Encoder encoderL;
 Encoder encoderR;
 Gyro gyro;
 
 int myauto;
+int mgGlobalTarget;
+int liftGlobalTarget;
+int fourGlobalTarget;
+int fourbar_function_running;
+int rollerGlobalTarget;
+int stack_function_running;
+int stacking;
+int driverStacking;
 
 void autonomous();
 void initializeIO();

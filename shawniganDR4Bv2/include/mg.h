@@ -7,4 +7,6 @@ void mgSet(int power);
 
 void mgTask (void*ignore);
 
+TaskHandle mgAutoTask;
+
 #endif

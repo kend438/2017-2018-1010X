@@ -7,23 +7,23 @@ void gyroTurn(int direction, int targetTurn);
 
 void gyroTurnPID(int direction, int targetTurn, int timeout, float kp, float kd);
 
-void mobileGoalTen(int direction, int target);
-
 void mobileGoalTwenty(int direction, int target);
 
 void lift(int direction, int target);
 
 void fourbar(int direction, int target);
 
-void scoreoneauto(int timeout);
-
 void fourAUp();
 
 void fourADown();
 
-void rollOut(int timeout);
+void stackTask(void*ignore);
 
-void rollIn(int timeout);
+TaskHandle stackAutoTask;
+
+void driverStackTask(void*ignore);
+
+TaskHandle driverStackAutoTask;
 
 void stop();
 #endif

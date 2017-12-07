@@ -37,7 +37,6 @@ void operatorControl() {
 	int errordiff;
 	int p;
 	int d;
-	bool liftADown;
 	float tkp = 0.3;
 	bool fourPU;
 	bool fourPD;
@@ -46,12 +45,17 @@ void operatorControl() {
 	bool safemg;
 	bool reset;
 	bool cancel;
+	int rollSet;
+	bool liftUpP;
+	bool liftDownP;
 
 	encoderReset(encoderTen);
 	tenTarget = encoderGet(encoderTen);
 	twentyTarget = analogRead(1);
 int armtar = 0;
 	while (1) {
+
+		TaskHandle driverStackAutoTask = taskCreate(driverStackTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 
 		//lcd
 		tenTarget = encoderGet(encoderTen);
@@ -64,8 +68,10 @@ int armtar = 0;
 	mgLiftDown = joystickGetDigital(1,6, JOY_DOWN);
 	liftUp = joystickGetDigital(1,5, JOY_UP);
 	liftDown = joystickGetDigital(1,5, JOY_DOWN); //out
-	fourUp = joystickGetDigital(2,7, JOY_UP);
-	fourDown = joystickGetDigital(2,7, JOY_DOWN);
+	liftUpP = joystickGetDigital(2,7,JOY_UP);
+	liftDownP = joystickGetDigital(2,7,JOY_DOWN);
+	fourUp = joystickGetDigital(2,7, JOY_LEFT);
+	fourDown = joystickGetDigital(2,7, JOY_RIGHT);
 	fourPU = joystickGetDigital(2,5, JOY_UP);
 	fourPD = joystickGetDigital(2,5, JOY_DOWN);
 	power = joystickGetAnalog(1,1);
@@ -129,11 +135,14 @@ if(scoremg == 1){
 	}
 	else{mgSet(0);}
 	}
-/*
+
 if(scoreOne ==1){
-scoreoneauto(5000);
+driverStacking = 1;
+	twentyTarget = analogRead(1);
+		tenTarget = encoderGet(encoderTen);
+
 }
-*/
+
 	//$$$$$$$$$ fourbar $$$$$$$$$//
 	if((fourUp == 1 && fourDown == 0)){
 		fourSet(-127);
@@ -155,6 +164,7 @@ scoreoneauto(5000);
 
 	if(fourPU ==1 && fourPD ==0){
 		twentyTarget = 1300;
+		rollSet = -15;
 	}
 	if(fourPU ==0 && fourPD ==1){
 		twentyTarget = 3200;
@@ -172,15 +182,16 @@ scoreoneauto(5000);
 
 
 	////////////dr4b
-	if((liftUp == 1 && liftDown == 0)){
+	if((liftUp == 1 && liftDown == 0)|| liftUpP ==1 && liftDownP ==0){
 		liftSet(-127);
+		rollSet=-15;
 	tenTarget = encoderGet(encoderTen);
 	}
-	else if((liftUp == 0 && liftDown == 1)){
+	else if((liftUp == 0 && liftDown == 1)|| liftUpP ==0 && liftDownP ==1){
 		liftSet(127);
 	tenTarget = encoderGet(encoderTen);
 	}
-	else if((liftUp == 0 && liftDown == 0)){
+	else if((liftUp == 0 && liftDown == 0)&& liftUpP ==0 && liftDownP ==0){
 		tenCurrent = encoderGet(encoderTen);
 		tenError = tenTarget - tenCurrent;
 		p = tenError*kp;
@@ -200,6 +211,23 @@ if((liftADown == 1)){
 
 ////////rollers
 if((rollUp == 1 && rollDown == 0)){
+	rollerSet(-90);
+	rollSet = -90;
+//	twentyCurrent = analogRead(1);
+}
+else if((rollUp == 0 && rollDown == 1)){
+	rollerSet(85);
+	rollSet = 85;
+//	twentyCurrent = analogRead(1);
+}
+else if((rollUp == 0 && rollDown == 0)){
+	rollerSet(rollSet);
+
+}
+	delay(20);
+	}
+
+/*if((rollUp == 1 && rollDown == 0)){
 	rollerSet(-127);
 //	twentyCurrent = analogRead(1);
 }
@@ -212,5 +240,8 @@ else if((rollUp == 0 && rollDown == 0)){
 
 }
 	delay(20);
-	}
+}*/
+
+
+
 }

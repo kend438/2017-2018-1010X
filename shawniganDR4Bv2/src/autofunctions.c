@@ -244,7 +244,7 @@ void driverStackTask(void*ignore){
     while(true){
       if(!isEnabled()){break;} // when disabled, arm task ends - allows for new tassk ot be started when enabled
 
-if(driverStacking ==1){
+if(driverStacking == 1){
   rollerSet(-15);
   int armpos = encoderGet(encoderTen);
   lift(1,(armpos-50));
@@ -258,12 +258,12 @@ if(driverStacking ==1){
   delay(10);
   lift(-1,20);
   rollerSet(-127);
-
+}
     delay(20);
     }
   taskDelete(stackAutoTask); // when loop break (i.e robot not enabled)
   }
-}
+
 
 
 

@@ -35,19 +35,20 @@ void operatorControl() {
 	int pid;
 	int errorlast;
 	int errordiff;
-	int p;
-	int d;
+	float p;
+	float d;
 	float tkp = 0.3;
 	bool fourPU;
 	bool fourPD;
 	bool scoreOne;
 	bool scoremg;
 	bool safemg;
-	bool reset;
-	bool cancel;
+	//bool reset;
+	//bool cancel;
 	int rollSet;
-	bool liftUpP;
-	bool liftDownP;
+	//bool liftUpP;
+	//bool liftDownP;
+	int liftJoy;
 
 	encoderReset(encoderTen);
 	tenTarget = encoderGet(encoderTen);
@@ -55,7 +56,7 @@ void operatorControl() {
 int armtar = 0;
 	while (1) {
 
-		TaskHandle driverStackAutoTask = taskCreate(driverStackTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
+TaskHandle driverStackAutoTask = taskCreate(driverStackTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 
 		//lcd
 		tenTarget = encoderGet(encoderTen);
@@ -68,8 +69,8 @@ int armtar = 0;
 	mgLiftDown = joystickGetDigital(1,6, JOY_DOWN);
 	liftUp = joystickGetDigital(1,5, JOY_UP);
 	liftDown = joystickGetDigital(1,5, JOY_DOWN); //out
-	liftUpP = joystickGetDigital(2,7,JOY_UP);
-	liftDownP = joystickGetDigital(2,7,JOY_DOWN);
+//	liftUpP = joystickGetDigital(2,7,JOY_UP);
+	//liftDownP = joystickGetDigital(2,7,JOY_DOWN);
 	fourUp = joystickGetDigital(2,7, JOY_LEFT);
 	fourDown = joystickGetDigital(2,7, JOY_RIGHT);
 	fourPU = joystickGetDigital(2,5, JOY_UP);
@@ -78,11 +79,12 @@ int armtar = 0;
 	turn = joystickGetAnalog(1,3);
 	rollUp = joystickGetDigital(2,6,JOY_UP);
 	rollDown = joystickGetDigital(2,6,JOY_DOWN);
-	scoreOne= joystickGetDigital(2,8,JOY_UP);
-	reset = joystickGetDigital(2,8,JOY_UP);
+	scoreOne= joystickGetDigital(2,7,JOY_DOWN);
+	//reset = joystickGetDigital(2,8,JOY_UP);
 	scoremg = joystickGetDigital(1,8,JOY_DOWN);
 	safemg = joystickGetDigital(1,8,JOY_UP);
-	cancel = joystickGetDigital(2,7,JOY_RIGHT);
+	//cancel = joystickGetDigital(2,7,JOY_RIGHT);
+	liftJoy = joystickGetAnalog(1,3);
 
 /*
 //// auto stack testing
@@ -182,16 +184,29 @@ driverStacking = 1;
 
 
 	////////////dr4b
-	if((liftUp == 1 && liftDown == 0)|| liftUpP ==1 && liftDownP ==0){
+	if(liftUp == 1){
 		liftSet(-127);
 		rollSet=-15;
 	tenTarget = encoderGet(encoderTen);
 	}
-	else if((liftUp == 0 && liftDown == 1)|| liftUpP ==0 && liftDownP ==1){
+
+	if(liftJoy>15){
+		liftSet(-127);
+		rollSet=-15;
+	tenTarget = encoderGet(encoderTen);
+	}
+
+	if(liftDown == 1){
 		liftSet(127);
 	tenTarget = encoderGet(encoderTen);
 	}
-	else if((liftUp == 0 && liftDown == 0)&& liftUpP ==0 && liftDownP ==0){
+
+	if(liftJoy <-15){
+		liftSet(127);
+	tenTarget = encoderGet(encoderTen);
+	}
+
+	else{
 		tenCurrent = encoderGet(encoderTen);
 		tenError = tenTarget - tenCurrent;
 		p = tenError*kp;

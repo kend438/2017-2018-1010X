@@ -50,16 +50,13 @@ extern "C" {
 #define dirL 1
 #define dirR 1
 
-#define fourPot 1
-#define mgPot 3
-
-
 Encoder encoderTen;
 Encoder encoderL;
 Encoder encoderR;
 Gyro gyro;
 
 int myauto;
+<<<<<<< HEAD
 int mgGlobalTarget;
 int liftGlobalTarget;
 int fourGlobalTarget;
@@ -68,6 +65,8 @@ int rollerGlobalTarget;
 int stack_function_running;
 int stacking;
 int driverStackingOn;
+=======
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 
 void autonomous();
 void initializeIO();

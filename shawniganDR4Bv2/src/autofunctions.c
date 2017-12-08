@@ -1,5 +1,4 @@
 #include "main.h"
-#include "autofunctions.h"
 #include "drive.h"
 #include "lift.h"
 #include "fourbar.h"
@@ -127,7 +126,27 @@ while(gyroAverage < targetTurn){
 driveSet(-direction*15, -direction*15);
 driveSet(0,0);
 }
+/*
+void mobileGoalTen(int direction, int target){
+int pos = encoderGet(encoderTen);
+if(direction == 1){
+pos= encoderGet(encoderTen);
+while(pos>target)
+{
+pos = encoderGet(encoderTen);
+if(pos>target){mgtenSet(-127);}
+}
+}
+else{
+  while(pos<target){
+  pos = encoderGet(encoderTen);
+  if(pos<target){mgtenSet(127);}
+  }
+}
+mgtenSet(-30*direction);
+}
 
+*/
 void mobileGoalTwenty(int direction, int target){
 int pos = analogRead(3);
 if(direction == 1){//out
@@ -198,45 +217,44 @@ void fourbar(int direction, int target){
 ///fourbar up and down
 
 void fourAUp(){
-fourbar_function_running = 1;
 fourbar(1,1300);
-fourbar_function_running = 0;
-fourGlobalTarget = 1300;
 }
 
 void fourADown(){
-  fourbar_function_running = 1;
   fourbar(-1,3200);
   fourSet(20);
-  fourbar_function_running = 0;
-  fourGlobalTarget = 3200;
 }
 
+///positive is roller out
 
-
-void stackTask(void*ignore){
-int stacking;
-  while(true){
-    if(!isEnabled()){break;} // when disabled, arm task ends - allows for new tassk ot be started when enabled
-if(stacking == 1){
-lift(1,15);
-fourAUp();
-lift(-1,0);//four bar up and arm down
-
-rollerSet(78);//outtake
-delay(600);
-lift(1,-40);//lift up while outtaking
-rollerSet(0);
-liftGlobalTarget = encoderGet(encoderTen);
-fourGlobalTarget = analogRead(fourPot);
-rollerGlobalTarget = 78;
-
-    delay(20);
-    }
-  taskDelete(stackAutoTask); // when loop break (i.e robot not enabled)
+void rollOut(int timeout){
+  int startTime = millis();
+  while((millis()-startTime)<timeout){
+    rollerSet(127);
   }
+  rollerSet(127);
 }
 
+<<<<<<< HEAD
+=======
+void rollIn(int timeout){
+  int startTime = millis();
+  while((millis()-startTime)<timeout){
+    rollerSet(-127);
+  }
+  rollerSet(0);
+}
+
+void scoreoneauto(int timeout){
+	int startTime = millis();
+	while((millis()-startTime)<timeout){
+	lift(1,-50);
+	fourbar(1,250);
+	fourbar(-1,500);
+}
+
+}
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 
 
 

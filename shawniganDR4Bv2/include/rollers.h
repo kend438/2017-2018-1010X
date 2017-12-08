@@ -3,8 +3,4 @@
 
 void rollerSet(int power);
 
-void rollerTask(void*ignore);
-
-TaskHandle rollerAutoTask;
-
 #endif

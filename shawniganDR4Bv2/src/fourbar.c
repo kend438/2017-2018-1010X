@@ -1,9 +1,10 @@
 #include "main.h"
-#include "fourbar.h"
+#include "drive.h"
 
 void fourSet(int power){
   motorSet(fourBar,power);
 }
+<<<<<<< HEAD
 
 void fourTask(void*ignore){
   int kp = 1;
@@ -25,3 +26,5 @@ if(fourbar_function_running == 0 || stack_function_running == 0){
   fourSet(0);
   taskDelete(fourAutoTask); // when loop break (i.e robot not enabled)
 }
+=======
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)

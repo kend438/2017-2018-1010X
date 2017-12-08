@@ -36,8 +36,14 @@ void operatorControl() {
 	int pid;
 	int errorlast;
 	int errordiff;
+<<<<<<< HEAD
 	float p;
 	float d;
+=======
+	int p;
+	int d;
+	bool liftADown;
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 	float tkp = 0.3;
 	bool fourPU;
 	bool fourPD;
@@ -46,19 +52,26 @@ void operatorControl() {
 	bool safemg;
 	//bool reset;
 	bool cancel;
+<<<<<<< HEAD
 	int rollSet;
 	//bool liftUpP;
 	//bool liftDownP;
 	int liftJoy;
 	int driverStackingOn = 0;
+=======
+
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 	encoderReset(encoderTen);
 	tenTarget = encoderGet(encoderTen);
 	twentyTarget = analogRead(1);
 int armtar = 0;
 	while (1) {
 
+<<<<<<< HEAD
 TaskHandle driverStackAutoTask = taskCreate(driverStackTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 
+=======
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 		//lcd
 		tenTarget = encoderGet(encoderTen);
 		//int L = analogRead(3);
@@ -70,8 +83,13 @@ TaskHandle driverStackAutoTask = taskCreate(driverStackTask, TASK_DEFAULT_STACK_
 	mgLiftDown = joystickGetDigital(1,6, JOY_DOWN);
 	liftUp = joystickGetDigital(1,5, JOY_UP);
 	liftDown = joystickGetDigital(1,5, JOY_DOWN); //out
+<<<<<<< HEAD
 	fourUp = joystickGetDigital(2,7, JOY_LEFT);
 	fourDown = joystickGetDigital(2,7, JOY_RIGHT);
+=======
+	fourUp = joystickGetDigital(2,7, JOY_UP);
+	fourDown = joystickGetDigital(2,7, JOY_DOWN);
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 	fourPU = joystickGetDigital(2,5, JOY_UP);
 	fourPD = joystickGetDigital(2,5, JOY_DOWN);
 	power = joystickGetAnalog(1,1);
@@ -145,14 +163,46 @@ if(scoremg == 1){
 	}
 	else{mgSet(0);}
 	}
+<<<<<<< HEAD
 
 
 	//******** DRIVE ********//
 	driveSet(power - turn, power + turn);
 
+=======
+/*
+if(scoreOne ==1){
+scoreoneauto(5000);
+}
+*/
+	//$$$$$$$$$ fourbar $$$$$$$$$//
+	if((fourUp == 1 && fourDown == 0)){
+		fourSet(-127);
+		twentyTarget = analogRead(1);
+	}
+	else if((fourUp == 0 && fourDown == 1)){
+		fourSet(127);
+		twentyTarget = analogRead(1);
+	}
+	else if((fourUp == 0 && fourDown == 0)){
+		twentyCurrent = analogRead(1);
+		twentyError = twentyTarget - twentyCurrent;
+		twentyPower = twentyError*tkp;
+		fourSet(twentyPower);
+	}
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 
 
 
+<<<<<<< HEAD
+=======
+	if(fourPU ==1 && fourPD ==0){
+		twentyTarget = 1300;
+	}
+	if(fourPU ==0 && fourPD ==1){
+		twentyTarget = 3200;
+	}
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 
 
 
@@ -190,6 +240,7 @@ if(driverStackingOn ==0){
 
 
 	////////////dr4b
+<<<<<<< HEAD
 	if(liftUp == 1){
 		liftSet(-127);
 		rollSet=-15;
@@ -197,10 +248,13 @@ if(driverStackingOn ==0){
 	}
 
 	if(liftJoy>15){
+=======
+	if((liftUp == 1 && liftDown == 0)){
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 		liftSet(-127);
-		rollSet=-15;
 	tenTarget = encoderGet(encoderTen);
 	}
+<<<<<<< HEAD
 
 	if(liftDown == 1){
 		liftSet(127);
@@ -213,6 +267,13 @@ if(driverStackingOn ==0){
 	}
 
 	else{
+=======
+	else if((liftUp == 0 && liftDown == 1)){
+		liftSet(127);
+	tenTarget = encoderGet(encoderTen);
+	}
+	else if((liftUp == 0 && liftDown == 0)){
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 		tenCurrent = encoderGet(encoderTen);
 		tenError = tenTarget - tenCurrent;
 		p = tenError*kp;
@@ -232,23 +293,6 @@ if((liftADown == 1)){
 
 ////////rollers
 if((rollUp == 1 && rollDown == 0)){
-	rollerSet(-90);
-	rollSet = -90;
-//	twentyCurrent = analogRead(1);
-}
-else if((rollUp == 0 && rollDown == 1)){
-	rollerSet(85);
-	rollSet = 85;
-//	twentyCurrent = analogRead(1);
-}
-else if((rollUp == 0 && rollDown == 0)){
-	rollerSet(rollSet);
-
-}
-	delay(20);
-	}
-
-/*if((rollUp == 1 && rollDown == 0)){
 	rollerSet(-127);
 //	twentyCurrent = analogRead(1);
 }
@@ -261,9 +305,13 @@ else if((rollUp == 0 && rollDown == 0)){
 
 }
 	delay(20);
+<<<<<<< HEAD
 }*/
 }
 
 
 
+=======
+	}
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 }

@@ -6,6 +6,7 @@ void liftSet(int power){
   motorSet(liftTR,power);
   motorSet(liftB, power);
 }
+<<<<<<< HEAD
 
 void liftTask(void*ignore){
   int kp = 1;
@@ -24,3 +25,5 @@ void liftTask(void*ignore){
   liftSet(0);
   taskDelete(liftAutoTask); // when loop break (i.e robot not enabled)
 }
+=======
+>>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)

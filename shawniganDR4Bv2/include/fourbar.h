@@ -5,8 +5,4 @@
 
 void fourSet(int power);
 
-void fourTask(void*ignore);
-
-TaskHandle fourAutoTask;
-
 #endif

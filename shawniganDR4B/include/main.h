@@ -7,8 +7,26 @@
 extern "C" {
 #endif
 
+//back drive is 1
+//drive forwards is -1
+// 1 is clockwise
+//-1 is counterclockwise
+
+ //mg all the way in 1820
+ //mg all the way out 235
+ //mg score 1400
+ //mg pick up safe 800
+
+// fourbar up is -127
+//fourbar down is 127
+//fourbar down 3200, up 1200
+
+//double reverse all the way up -470, all the way down is 0
+//double reverse up is negative, down is positive
+
+
 #define rollers 1
-#define liftT 2
+#define liftTL 2
 
 #define DriveFL 3
   #define DriveFL_Dir -1
@@ -21,7 +39,7 @@ extern "C" {
 #define DriveFR 6
   #define DriveFR_Dir -1
 
-#define nothing 7
+#define liftTR 7
 
 #define DriveBR 8
   #define DriveBR_Dir -1

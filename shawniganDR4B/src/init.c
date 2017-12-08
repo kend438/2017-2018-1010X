@@ -10,8 +10,8 @@ void initialize() {
   lcdSetBacklight(uart1, 1);
 
 encoderTen = encoderInit(1, 2, 0);
-encoderL = encoderInit(3,4,0);
-encoderR = encoderInit(5,6,0);
+encoderL = encoderInit(5,6,0);
+encoderR = encoderInit(7,8,0);
 
 myauto = 1;
 
@@ -39,19 +39,19 @@ if(lcdReadButtons(uart1) == 4){ // changes auto
 
   switch(myauto){ // changes depening on myauto value
          case 1:
-           lcdSetText(uart1, 2, "skills PID");
+           lcdSetText(uart1, 2, "right two cones"); //ised tp ne right 10
          break;
          case 2:
-           lcdSetText(uart1, 2, "R 10 point");
+           lcdSetText(uart1, 2, "left two cones");
          break;
          case 3:
-           lcdSetText(uart1, 2, "L 10 point?");
+           lcdSetText(uart1, 2, "test");
          break;
          case 4:
-           lcdSetText(uart1, 2, "forward mg");
+           lcdSetText(uart1, 2, "right 5");
          break;
          case 5:
-           lcdSetText(uart1, 2, "R 5 point");
+           lcdSetText(uart1, 2, ";left 5");
          break;
          case 6:
            lcdSetText(uart1, 2, "L 5 point");

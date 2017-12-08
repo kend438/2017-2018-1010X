@@ -5,23 +5,6 @@
 #include "mg.h"
 #include "rollers.h"
 
-//back drive is 1
-//drive forwards is -1
-// 1 is clockwise
-//-1 is counterclockwise
-
- //mg all the way in 1820
- //mg all the way out 235
- //mg score 1400
- //mg pick up safe 800
-
-// fourbar up is -127
-//fourbar down is 127
-//fourbar down 3200, up 1200
-
-//double reverse all the way up -470, all the way down is 0
-//double reverse up is negative, down is positive
-
 void autoDrive(int direction, int target){
 
   int leftPower;
@@ -149,47 +132,41 @@ mgtenSet(-30*direction);
 */
 void mobileGoalTwenty(int direction, int target){
 int pos = analogRead(3);
-if(direction == 1){//out
+if(direction == 1){
  pos = analogRead(3);
- while(pos>target)//out
+ while(pos>target)
  {
    pos = analogRead(3);
-   mgSet(-127);
+   mgSet(127);
  }
  }
 else{
 pos = analogRead(3);
  while(pos<target)
  {pos = analogRead(3);
-  mgSet(127);}
+  mgSet(-127);}
 }
 mgSet(0);
 }
 
 void lift(int direction, int target){
-int  pos = encoderGet(encoderTen);
-
-///direction 1 is up, encoder decreases as lift moves up
-
+int  pos = encoderGet(encoderL);
+///1isup
 if(direction == 1){
 pos= encoderGet(encoderTen);
 while(pos>target)
 {
 pos = encoderGet(encoderTen);
-liftSet(-127);
-delay(20);
+if(pos>target){liftSet(-127);}
 }
 }
-
-if(direction == -1){
+else{
   while(pos<target){
   pos = encoderGet(encoderTen);
-liftSet(127);
-  delay(20);
+  if(pos<target){liftSet(127);}
   }
-  }
-
-liftSet(-20*direction); //-20*direction
+}
+liftSet(-20*direction);
 }
 
 
@@ -198,33 +175,26 @@ void fourbar(int direction, int target){
   int pos = analogRead(1);
   if(direction == 1){
    pos = analogRead(1);
-   while(pos>target)
+   while(pos<target)
    {
      pos = analogRead(1);
-     fourSet(-127);
+     fourSet(90);
    }
    }
   else{
   pos = analogRead(1);
-   while(pos<target)
+   while(pos>target)
    {pos = analogRead(1);
-    fourSet(127);}
+    fourSet(-90);}
   }
   fourSet(0);
   }
 
-
-///fourbar up and down
-
-void fourAUp(){
-fourbar(1,1300);
+void rollerAuto(int direction, int power){
+  rollerSet(direction*-power);
 }
 
-void fourADown(){
-  fourbar(-1,3200);
-  fourSet(20);
-}
-
+<<<<<<< HEAD
 ///positive is roller out
 
 void rollOut(int timeout){
@@ -244,12 +214,16 @@ void rollIn(int timeout){
   }
   rollerSet(0);
 }
+=======
+>>>>>>> parent of 682d7b6... ok look at this cool
 
 void scoreoneauto(int timeout){
 	int startTime = millis();
 	while((millis()-startTime)<timeout){
+	rollerAuto(1,-10);
 	lift(1,-50);
 	fourbar(1,250);
+  rollerAuto(1,90);
 	fourbar(-1,500);
 }
 

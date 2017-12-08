@@ -15,12 +15,9 @@ void lift(int direction, int target);
 
 void fourbar(int direction, int target);
 
-void scoreoneauto(int timeout);
+void rollerAuto(int direction, int power);
 
-void fourAUp();
-
-void fourADown();
-
+<<<<<<< HEAD
 <<<<<<< HEAD
 void stackTask(void*ignore);
 
@@ -30,6 +27,9 @@ void rollOut(int timeout);
 
 void rollIn(int timeout);
 >>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
+=======
+void scoreoneauto(int timeout);
+>>>>>>> parent of 682d7b6... ok look at this cool
 
 void stop();
 #endif

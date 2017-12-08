@@ -7,24 +7,6 @@
 extern "C" {
 #endif
 
-//back drive is 1
-//drive forwards is -1
-// 1 is clockwise
-//-1 is counterclockwise
-
- //mg all the way in 1820
- //mg all the way out 235
- //mg score 1400
- //mg pick up safe 800
-
-// fourbar up is -127
-//fourbar down is 127
-//fourbar down 3200, up 1200
-
-//double reverse all the way up -470, all the way down is 0
-//double reverse up is negative, down is positive
-
-
 #define rollers 1
 #define liftTL 2
 

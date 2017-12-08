@@ -5,18 +5,15 @@
 #include "mg.h"
 #include "rollers.h"
 #include "autofunctions.h"
+<<<<<<< HEAD
 #include "stack.h"
+=======
+//fourbar down 510, up 260
+>>>>>>> parent of 682d7b6... ok look at this cool
 void operatorControl() {
 
-	//mg all the way in 1820
-	//mg all the way out 235
-	//mg score 1400
-	//mg pick up safe 800
-//fourbar down 3200, up 1200
-//double reverse all the way up -470, all the way down is 0
-//double reverse up is negative, down is positive
-	float kp = 5; //
-	float kd = 0;//6.8
+	float kp = 0.85; //
+	float kd = 7;//6.8
 	int tenError;
 	int tenCurrent;
 	int tenTarget;
@@ -49,6 +46,7 @@ void operatorControl() {
 	bool fourPD;
 	bool scoreOne;
 	bool scoremg;
+<<<<<<< HEAD
 	bool safemg;
 	//bool reset;
 	bool cancel;
@@ -59,14 +57,15 @@ void operatorControl() {
 	int liftJoy;
 	int driverStackingOn = 0;
 =======
+=======
+>>>>>>> parent of 682d7b6... ok look at this cool
 
 >>>>>>> parent of 7a7efca... Tasks for Autonomous and New Driver Control for Partner (Stack Task)
 	encoderReset(encoderTen);
 	tenTarget = encoderGet(encoderTen);
 	twentyTarget = analogRead(1);
-int armtar = 0;
-	while (1) {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 TaskHandle driverStackAutoTask = taskCreate(driverStackTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 
@@ -77,6 +76,14 @@ TaskHandle driverStackAutoTask = taskCreate(driverStackTask, TASK_DEFAULT_STACK_
 		//int L = analogRead(3);
 		lcdPrint(uart1, 1, "dr%d", tenTarget);
 		lcdPrint(uart1, 2, "driveStacking%d", driverStackingOn);
+=======
+	while (1) {
+		//lcd
+		int L = analogRead(3);
+		int R = encoderGet(encoderTen);
+		lcdPrint(uart1, 1, "tenError%d", tenError);
+		lcdPrint(uart1, 2, "mg%d", L);
+>>>>>>> parent of 682d7b6... ok look at this cool
 
 	//%%%%%%%% JOYSTICK DEFINITIONS %%%%%%%%%//
 	mgLiftUp = joystickGetDigital(1,6, JOY_UP);
@@ -96,6 +103,7 @@ TaskHandle driverStackAutoTask = taskCreate(driverStackTask, TASK_DEFAULT_STACK_
 	turn = joystickGetAnalog(1,3);
 	rollUp = joystickGetDigital(2,6,JOY_UP);
 	rollDown = joystickGetDigital(2,6,JOY_DOWN);
+<<<<<<< HEAD
 	scoreOne= joystickGetDigital(2,7,JOY_DOWN);
 	//reset = joystickGetDigital(2,8,JOY_UP);
 	scoremg = joystickGetDigital(1,8,JOY_DOWN);
@@ -128,9 +136,11 @@ if(reset == 1){
 	fourADown();
 	delay(10);
 	lift(-1,20);
+=======
+	scoreOne= joystickGetDigital(2,8,JOY_UP);
+	scoremg = joystickGetDigital(1,8,JOY_DOWN);
+>>>>>>> parent of 682d7b6... ok look at this cool
 
-}
-*/
 	//^^^^^^^^ MOBILE GOAL TEN ^^^^^^^^^^^//
 	if(mgLiftUp == 1 && mgLiftDown == 0){
 		mgSet(127);
@@ -150,12 +160,13 @@ if(reset == 1){
 		mgSet(0);
 	}
 
-	if(safemg == 1){
-		if(analogRead(3)<1000){
-			mgSet(127);
+	if(scoremg == 1){
+		if(analogRead(3)<2650){
+			mgSet(-90);
 		}
 		else{mgSet(0);}
 	}
+<<<<<<< HEAD
 
 if(scoremg == 1){
 	if(analogRead(3)>1000){
@@ -170,6 +181,8 @@ if(scoremg == 1){
 	driveSet(power - turn, power + turn);
 
 =======
+=======
+>>>>>>> parent of 682d7b6... ok look at this cool
 /*
 if(scoreOne ==1){
 scoreoneauto(5000);

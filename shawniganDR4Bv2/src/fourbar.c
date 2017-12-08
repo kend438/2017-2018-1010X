@@ -17,7 +17,7 @@ if(fourbar_function_running == 0 || stack_function_running == 0){
   int error = fourGlobalTarget - current;
   int fourpower = error*kp;
 
-  fourSet(fourpower);
+  fourSet(-fourpower);
 }
     delay(20);
     }

@@ -5,6 +5,7 @@
 #include "mg.h"
 #include "rollers.h"
 #include "autofunctions.h"
+#include "stack.h"
 void operatorControl() {
 
 	//mg all the way in 1820
@@ -44,12 +45,12 @@ void operatorControl() {
 	bool scoremg;
 	bool safemg;
 	//bool reset;
-	//bool cancel;
+	bool cancel;
 	int rollSet;
 	//bool liftUpP;
 	//bool liftDownP;
 	int liftJoy;
-
+	int driverStackingOn = 0;
 	encoderReset(encoderTen);
 	tenTarget = encoderGet(encoderTen);
 	twentyTarget = analogRead(1);
@@ -62,15 +63,13 @@ TaskHandle driverStackAutoTask = taskCreate(driverStackTask, TASK_DEFAULT_STACK_
 		tenTarget = encoderGet(encoderTen);
 		//int L = analogRead(3);
 		lcdPrint(uart1, 1, "dr%d", tenTarget);
-		lcdPrint(uart1, 2, "armtar%d", armtar);
+		lcdPrint(uart1, 2, "driveStacking%d", driverStackingOn);
 
 	//%%%%%%%% JOYSTICK DEFINITIONS %%%%%%%%%//
 	mgLiftUp = joystickGetDigital(1,6, JOY_UP);
 	mgLiftDown = joystickGetDigital(1,6, JOY_DOWN);
 	liftUp = joystickGetDigital(1,5, JOY_UP);
 	liftDown = joystickGetDigital(1,5, JOY_DOWN); //out
-//	liftUpP = joystickGetDigital(2,7,JOY_UP);
-	//liftDownP = joystickGetDigital(2,7,JOY_DOWN);
 	fourUp = joystickGetDigital(2,7, JOY_LEFT);
 	fourDown = joystickGetDigital(2,7, JOY_RIGHT);
 	fourPU = joystickGetDigital(2,5, JOY_UP);
@@ -83,8 +82,17 @@ TaskHandle driverStackAutoTask = taskCreate(driverStackTask, TASK_DEFAULT_STACK_
 	//reset = joystickGetDigital(2,8,JOY_UP);
 	scoremg = joystickGetDigital(1,8,JOY_DOWN);
 	safemg = joystickGetDigital(1,8,JOY_UP);
-	//cancel = joystickGetDigital(2,7,JOY_RIGHT);
+	cancel = joystickGetDigital(2,7,JOY_RIGHT);
 	liftJoy = joystickGetAnalog(1,3);
+
+	if(scoreOne ==1){
+		delay(20);
+	driverStackingOn = 1;
+		twentyTarget = analogRead(1);
+			tenTarget = encoderGet(encoderTen);
+	}
+
+	if(cancel ==1){driverStackingOn =0;}
 
 /*
 //// auto stack testing
@@ -138,49 +146,47 @@ if(scoremg == 1){
 	else{mgSet(0);}
 	}
 
-if(scoreOne ==1){
-driverStacking = 1;
-	twentyTarget = analogRead(1);
-		tenTarget = encoderGet(encoderTen);
-
-}
-
-	//$$$$$$$$$ fourbar $$$$$$$$$//
-	if((fourUp == 1 && fourDown == 0)){
-		fourSet(-127);
-		twentyTarget = analogRead(1);
-	}
-	else if((fourUp == 0 && fourDown == 1)){
-		fourSet(127);
-		twentyTarget = analogRead(1);
-	}
-	else if((fourUp == 0 && fourDown == 0)){
-		twentyCurrent = analogRead(1);
-		twentyError = twentyTarget - twentyCurrent;
-		twentyPower = twentyError*tkp;
-		fourSet(twentyPower);
-	}
-
-
-	/////presets fourbar
-
-	if(fourPU ==1 && fourPD ==0){
-		twentyTarget = 1300;
-		rollSet = -15;
-	}
-	if(fourPU ==0 && fourPD ==1){
-		twentyTarget = 3200;
-	}
-
-
-
-
 
 	//******** DRIVE ********//
 	driveSet(power - turn, power + turn);
 
 
 
+
+
+
+
+
+
+////turning off fourbar, dr4b, and rollers when autostacking
+if(driverStackingOn ==0){
+
+		//$$$$$$$$$ fourbar $$$$$$$$$//
+		if((fourUp == 1 && fourDown == 0)){
+			fourSet(-127);
+			twentyTarget = analogRead(1);
+		}
+		else if((fourUp == 0 && fourDown == 1)){
+			fourSet(127);
+			twentyTarget = analogRead(1);
+		}
+		else if((fourUp == 0 && fourDown == 0)){
+			twentyCurrent = analogRead(1);
+			twentyError = twentyTarget - twentyCurrent;
+			twentyPower = twentyError*tkp;
+			fourSet(twentyPower);
+		}
+
+
+		/////presets fourbar
+
+		if(fourPU ==1 && fourPD ==0){
+			twentyTarget = 1300;
+			rollSet = -15;
+		}
+		if(fourPU ==0 && fourPD ==1){
+			twentyTarget = 3200;
+		}
 
 
 	////////////dr4b
@@ -256,6 +262,7 @@ else if((rollUp == 0 && rollDown == 0)){
 }
 	delay(20);
 }*/
+}
 
 
 

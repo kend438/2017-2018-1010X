@@ -67,7 +67,7 @@ int fourbar_function_running;
 int rollerGlobalTarget;
 int stack_function_running;
 int stacking;
-int driverStacking;
+int driverStackingOn;
 
 void autonomous();
 void initializeIO();

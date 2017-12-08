@@ -21,9 +21,5 @@ void stackTask(void*ignore);
 
 TaskHandle stackAutoTask;
 
-void driverStackTask(void*ignore);
-
-TaskHandle driverStackAutoTask;
-
 void stop();
 #endif

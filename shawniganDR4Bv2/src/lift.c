@@ -17,7 +17,7 @@ if(stack_function_running == 0){
   int error = liftGlobalTarget - current;
   int liftpower = error*kp;
 
-  liftSet(liftpower);
+  liftSet(-liftpower);
 }
     delay(20);
     }

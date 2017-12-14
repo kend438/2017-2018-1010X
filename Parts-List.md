@@ -2,7 +2,7 @@
 
 Main Part                 | Sub-Part             | Serial Number        | Comments
 ------------------------- | -------------------- | -------------------- | --------------------
-**7.2 V Batteries**       |                      |6115AT, 575TAT, 6045AT|   
+**7.2 V Batteries**       |                      |3 x 6115AT, 575TAT, 6045AT|   
 **7.2 V Battery Charger** | 4                    |                      |
 **AAA Batteries**         | 20                   |                      |
 **AAA Battery Charger**   | 2                    |                      |

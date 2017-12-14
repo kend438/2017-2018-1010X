@@ -3,10 +3,10 @@
 Main Part                 | Sub-Part             | Serial Number        | Comments
 ------------------------- | -------------------- | -------------------- | --------------------
 **7.2 V Batteries**       |                      |3 x 6115AT, 575TAT, 6045AT|   
-**7.2 V Battery Charger** | 4                    |                      |
-**AAA Batteries**         | 20                   |                      |
-**AAA Battery Charger**   | 2                    |                      |
-**_Cortex_**              | 1                    |                      |  
+**7.2 V Battery Charger** |                     |                      |Quantity: 4
+**AAA Batteries**         |                    |                      |Quantity: 20
+**AAA Battery Charger**   |                    |                      |Quantity: 2
+**_Cortex_**              |                     |                      |Quantity: 1  
 **_Joysticks_**           | Main                 | 5362AA               |  
 **_Joysticks_**           | Partner              | 4102AA               |  
 **_Motors_**              | Motor 1              |                      |✓   
